@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('components/css/property-card.css') }}">
 
 <div class="property">
-<a class="property-link" href="{{ route('property.details', ['id' => $property['property_id'], 'dates' => session('dates')]) }}">
+<a class="property-link" href="{{ route('property.details', ['id' => $property['property_id'], 'dates' => session('dates')]), 'guests' => se}}">
         <!--@if(isset($property['photos']) && count($property['photos']) > 0)
             <img src="{{ $property['photos'][0]['photo_url'] }}" alt="Imagem da Propriedade">
         @else
@@ -15,5 +15,4 @@
             <p class="price">€{{ number_format($property['property_price'], 2, ',', '.') }}</p>
         </div>
     </a>
-
 </div>
