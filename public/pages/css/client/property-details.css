@@ -1,0 +1,107 @@
+.property-details { 
+    font-family: Arial, sans-serif;
+    padding: 20px 20px;
+}
+
+.slider-location {
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.property-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.property-info{
+    margin-top: 20px;
+}
+.property-location {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.info-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.property-info-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.property-info ul li {
+    font-size: 16px;
+}
+
+.property-description {
+    margin: 20px 0;
+}
+
+.amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.amenity {
+    background-color: #f4f4f4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.cancellation-policy {
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+}
+
+.property-pricing {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.property-pricing h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.property-pricing form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.property-pricing input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn-reserve {
+    background-color: #ff5a5f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-reserve:hover {
+    background-color: #e04e4f;
+}
