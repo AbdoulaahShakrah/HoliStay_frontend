@@ -1,11 +1,9 @@
-/* Estilos do container principal */
 .container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Estilos da grid de propriedades */
 .properties {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -13,7 +11,6 @@
     padding: 20px;
 }
 
-/* Container da div de filtro */
 .price-filter-container {
     display: flex;
     flex-direction: row; 
@@ -30,25 +27,22 @@
     border-radius: 20px;
 }
 
-/* Estilos da div de filtro */
 .price-filter {
     padding: 30px 20px;
     border-radius: 12px;
     max-width: 600px;
-    margin: 0; /* Remove qualquer margem extra */
-    background-color: #f5f5f5; /* Adiciona uma cor de fundo para o filtro */
+    margin: 0;
+    background-color: #f5f5f5;
 }
 
-/* Formulário de filtro visível */
 .price-form {
-    display: flex; /* Formulário visível */
+    display: flex;
     margin-top: 20px;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
 }
 
-/* Formatação dos inputs dentro do formulário */
 .price-form .input-group {
     margin-bottom: 20px;
 }
@@ -62,7 +56,6 @@
     box-sizing: border-box;
 }
 
-/* Botão "Apply Filter" */
 .filter-btn {
     padding: 8px;
     font-size: 16px;
@@ -77,7 +70,6 @@
     margin-bottom: 6px;
 }
 
-/* Efeito de hover no botão */
 .filter-btn:hover {
     background-color: #218838;
 }

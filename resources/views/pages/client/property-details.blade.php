@@ -46,6 +46,7 @@
 
     <div class="property-pricing">
         <h2>&euro;{{ $property['property_price'] }} / Noite</h2>
+        <span>{{session('dates')}}</span>
         <button type="submit" class="btn-reserve">Reservar</button>
     </div>
 </div>
