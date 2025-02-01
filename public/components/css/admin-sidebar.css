@@ -1,0 +1,94 @@
+
+.img_box {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_box i{
+    font-size: 24px; /* Ajuste conforme necessário */
+    color: white; /* Ajuste conforme necessário */
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.profile h2{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: white; /* Ajuste conforme necessário */
+}
+
+.menu{
+    position:static;
+    background-color: #f26d21;
+    width: 90px;
+    height: 100%;
+    padding: 20px;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.menu:hover {
+    width: 220px;
+    border-top-right-radius: 15px; /* Arredonda o canto superior direito */
+    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
+}
+
+ul{
+    list-style: none;
+    position: relative;
+    height: 95%;
+}
+
+ul li a{
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    margin: 30px 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    transition: .5s;
+    color: white; /* Ajuste conforme necessário */
+}
+
+ul li a:hover, td:hover, .data-info .box:hover{
+    background-color: #3b48bb81;
+}
+
+.log-out{
+    position:static;
+    margin-inline-end: 50px;
+    width: 100%;
+}
+
+.log-out a:hover{
+    background-color: rgba(255, 3, 3, 0.657);
+}
+.log-out a{
+    background-color: #cf30103a;
+}
+
+ul li a i{
+    font-size: 30px;
+    color: 3px solid white;
+}
+
+.content{
+    width: 100%;
+    margin: 10px;
+}
+

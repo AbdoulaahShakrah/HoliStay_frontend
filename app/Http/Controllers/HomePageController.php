@@ -10,6 +10,4 @@ class HomePageController extends Controller
     {
         return view('pages.client.homepage');
     }
-    
-    
 }
