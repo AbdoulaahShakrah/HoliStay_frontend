@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('components/css/admin-sidebar.css') }}">
+<link rel="stylesheet" href="{{ asset('components/css/host-sidebar.css') }}">
 
 <div class="menu">
     <ul>

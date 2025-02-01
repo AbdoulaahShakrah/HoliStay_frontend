@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('components/css/admin-navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('components/css/host-navbar.css') }}">
 
 <header class="header">
     <div class="left-side">

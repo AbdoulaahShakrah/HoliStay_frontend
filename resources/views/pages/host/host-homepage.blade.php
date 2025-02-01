@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="{{ asset('pages/css/admin/admin-homepage.css') }}">
-@extends('layouts.admin-layout')
+<link rel="stylesheet" href="{{ asset('pages/css/host/host-homepage.css') }}">
+@extends('layouts.host-layout')
 
-@section('title', 'Admin - HOLISTAY')
+@section('title', 'Host - HOLISTAY')
 
 @section('content')
 <div class="properties-section">

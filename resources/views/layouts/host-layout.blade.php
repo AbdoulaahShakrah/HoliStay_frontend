@@ -10,16 +10,16 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('pages/css/admin-layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('layout/css/host-layout.css') }}">
 </head>
 
 <body>
     
-    @include('components.admin-navbar')
+    @include('components.host-navbar')
        
     <div class="container">
 
-        @include('components.admin-sidebar')
+        @include('components.host-sidebar')
 
         <main>
             @yield('content')

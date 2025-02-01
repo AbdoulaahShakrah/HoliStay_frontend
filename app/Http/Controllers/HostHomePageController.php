@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AdminHomePageController extends Controller
+class HostHomePageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.admin.admin-homepage');
+        return view('pages.host.host-homepage');
     }
 }

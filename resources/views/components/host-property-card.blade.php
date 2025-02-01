@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('components/css/admin-property-card.css') }}">
+<link rel="stylesheet" href="{{ asset('components/css/host-property-card.css') }}">
 
 <div class="property">
 <a class="property-link" href="{{ route('property.details', ['id' => $property['property_id'], 'dates' => session('dates')]), 'guests' => se}}">
