@@ -13,7 +13,9 @@ Route::get('/', function () {
 Route::get('/home', [HomePageController::class, 'index'])->name('home');
 Route::post('/home', [PropertyController::class, 'customSearch'])->name('customSearch');
 
-Route::post('/search', [PropertyController::class, 'generalSearch'])->name('search');
+Route::post('/search', [PropertyController::class, 'generalSearch'])->name('generalSearch');
+Route::post('/categorySearch', [PropertyController::class, 'catagorySearch'])->name('catagorySearch');
+
 Route::get('/properties', [PropertyController::class, 'properties'])->name('properties');
 Route::get('/property/{id}', [PropertyController::class, 'show'])->name('property.details');
 

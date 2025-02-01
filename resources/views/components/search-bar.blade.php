@@ -2,23 +2,47 @@
 <link rel="stylesheet" href="{{ asset('components/css/search-bar.css') }}">
 <div class="searchbar">
 
-    <form id="searchbar-form" method="POST" action="{{ route('search') }}">
+    <form id="searchbar-form" method="POST" action="{{ route('generalSearch') }}">
         @csrf
 
         <div class="search-inputs">
 
             <div class="input-box">
-                <input type="text" name="location" id="location" placeholder="Ex: Lisboa" value="{{ session('location') }}" required />
+                <input type="text" name="location" id="location" placeholder="Ex: Lisboa"
+                    value="{{ is_array(request('propertyCity')) ? implode(', ', request('propertyCity')) : '' }}" required />
                 <i class="fa fa-map-marker-alt"></i>
             </div>
+            @php
+            use Carbon\Carbon;
+
+            // Obtenha as datas de check-in e check-out
+            $checkInDate = request('checkInDate')['eq'] ?? '';
+            $checkOutDate = request('checkOutDate')['eq'] ?? '';
+
+            // Verifique se as datas não estão vazias
+            if ($checkInDate && $checkOutDate) {
+
+            $checkIn = Carbon::parse($checkInDate);
+            $checkOut = Carbon::parse($checkOutDate);
+            $difference = $checkIn->diffInDays($checkOut);
+            session()->put('difference', $difference);
+            } else {
+            $difference = 0;
+            }
+            @endphp
 
             <div class="input-box">
-                <input class="datepicker" name="dates" id="dates" placeholder="Check-in --> Check-out" value="{{ session('dates', old('dates')) }}" required />
+                <input class="datepicker" name="dates" id="dates"
+                    placeholder="Check-in --> Check-out"
+                    value="{{ $checkInDate && $checkOutDate ? $checkInDate . ' - ' . $checkOutDate : '' }}"
+
+                    required />
                 <i class="fa fa-calendar"></i>
             </div>
 
+
             <div class="input-box">
-                <input type="text" name="guests" id="guests" placeholder="Hóspedes" value="{{ session('guests') }}" required />
+                <input type="text" name="guests" id="guests" autocomplete="off" placeholder="Hóspedes" value="{{ is_array(request('propertyCapacity')) ? implode(', ', request('propertyCapacity')) : '' }}" required />
                 <i class="fa fa-user"></i>
                 <div class="guest-dropdown" id="guest-dropdown">
                     <div class="guest-option">
@@ -60,31 +84,18 @@
     </form>
 </div>
 
-
-
-<!-- Categorias -->
 <div class="search-categories">
-    <button>
-        <i class="fa fa-umbrella-beach"></i> Beachfront
-    </button>
-    <button>
-        <i class="fa fa-home"></i> Cabins
-    </button>
-    <button>
-        <i class="fa fa-skiing"></i> Skiing
-    </button>
-    <button>
-        <i class="fa fa-piano"></i> Grand Pianos
-    </button>
-    <button>
-        <i class="fa fa-building"></i> Mansions
-    </button>
-    <button>
-        <i class="fa fa-bolt"></i> OMG!
-    </button>
-    <button>
-        <i class="fa fa-swimmer"></i> Amazing Pools
-    </button>
+    @foreach(session('categories') as $category)
+    <form action="{{route('catagorySearch')}}" method="POST">
+        @csrf <!-- Token de segurança obrigatório para POST -->
+
+        <input type="hidden" name="category" value="{{$category}}">
+        <button type="submit">
+            <i class="fa fa-{{$category}}"></i> {{$category}}
+        </button>
+    </form>
+
+    @endforeach
 </div>
 
 <script src="{{ asset('components/js/search-bar.js') }}"></script>

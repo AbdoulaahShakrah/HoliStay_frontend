@@ -17,12 +17,6 @@ class PropertyController extends Controller
     {
         $checkInDate = Carbon::today()->addDays(1)->toDateString();
         $checkOutDate = Carbon::today()->addDays(8)->toDateString();
-        $dates = $checkInDate . " - " . $checkOutDate;
-
-        session()->put([
-            'dates' => $dates,
-            'location' => $request->input('country'),
-        ]);
 
         $queryParams = [
             "checkInDate[eq]" => $checkInDate,
@@ -33,6 +27,22 @@ class PropertyController extends Controller
         ];
 
         return redirect()->route('properties', $queryParams);
+    }
+
+    public function catagorySearch(Request $request)
+    {
+
+        $checkInDate = Carbon::today()->addDays(1)->toDateString();
+        $checkOutDate = Carbon::today()->addDays(8)->toDateString();
+
+
+        $queryParams = [
+            "checkInDate[eq]" => $checkInDate,
+            "checkOutDate[eq]" => $checkOutDate,
+            "propertyType[eq]" => $request->input('category'),
+        ];
+
+        return redirect()->route('properties', $this->buildQueryString($queryParams));
     }
 
     public function generalSearch(Request $request)
@@ -48,9 +58,9 @@ class PropertyController extends Controller
         $capacity = $adults + $children + $babies;
 
         session()->put([
-            'dates' => $request->input('dates'),
-            'guests' => $request->input('guests'),
-            'location' => $request->input('location'),
+            'dates' => $request->input('dates', session('dates')),
+            'guests' => $request->input('guests', session('guests')),
+            'location' => $request->input('location', session('location')),
         ]);
 
         $queryParams = [
@@ -65,17 +75,15 @@ class PropertyController extends Controller
 
     public function properties(Request $request)
     {
-        // Guardar na sessão os valores, garantindo que permanecem após o refresh
         session()->put([
             'dates' => $request->input('dates', session('dates')),
             'guests' => $request->input('guests', session('guests')),
             'location' => $request->input('location', session('location')),
         ]);
 
-        $apiUrl = 'http://127.0.0.1:8000/api/v1/properties' . '?' . urldecode(http_build_query($request->query()));
+        $apiUrl = 'http://127.0.0.1:8000/api/v1/properties' . '?' . urldecode(http_build_query($request->query())); //urldecode por causa dos caracteres especiais do url
         $response = Http::get($apiUrl);
         $properties = $response->successful() ? $response->json()['data'] : [];
-
         return view('pages.client.search-results', compact('properties'));
     }
 
