@@ -8,11 +8,11 @@
         <!--<img *ngFor="let image of selectedProperty?.images; let i = index" [src]="image" class="image-item"
                 [alt]="'img-' + i">-->
         <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
-        <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
-        <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
-        <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
-        <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
-        <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
+        <img class="image-item" src="{{ asset('images/homepage/2.webp') }}">
+        <img class="image-item" src="{{ asset('images/homepage/4.webp') }}">
+        <img class="image-item" src="{{ asset('images/homepage/5.webp') }}">
+        <img class="image-item" src="{{ asset('images/homepage/6.webp') }}">
+        <img class="image-item" src="{{ asset('images/homepage/3.webp') }}">
         <img class="image-item" src="{{ asset('images/homepage/1.webp') }}">
     </div>
 
