@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="{{ asset('components/css/datera.min.css') }}">
 <link rel="stylesheet" href="{{ asset('components/css/search-bar.css') }}">
-<div class="searchbar">
+<form id="searchbar-form" method="POST" action="{{ route('generalSearch') }}">
 
-    <form id="searchbar-form" method="POST" action="{{ route('generalSearch') }}">
+    <div class="searchbar">
+
         @csrf
 
         <div class="search-inputs">
@@ -81,8 +82,8 @@
             </button>
 
         </div>
-    </form>
-</div>
+    </div>
+</form>
 
 <div class="search-categories">
     @foreach(session('categories') as $category)
@@ -101,11 +102,10 @@
 <script src="{{ asset('components/js/search-bar.js') }}"></script>
 <script src="{{ asset('components/js/guests.js') }}"></script>
 <script src="{{ asset('components/js/datera.min.js') }}"></script>
-<!--
+
 <script>
     new window.Datera("datepicker", {
       minYear: 2000,
       selectionType: "range",
     }).mount();
   </script>
-  -->
