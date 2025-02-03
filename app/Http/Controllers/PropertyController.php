@@ -93,7 +93,7 @@ class PropertyController extends Controller
 
         $response = Http::get($apiUrl);
         $property = $response->successful() ? $response->json()['data'] : [];
-
+        
         return view('pages.client.property-details', compact('property'));
     }
 }

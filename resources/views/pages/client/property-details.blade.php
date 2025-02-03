@@ -41,7 +41,7 @@
         </div>
         @php
         use Carbon\Carbon;
-        $dates = session('dates') ?? ''; // Garantir que não seja null
+        $dates = session('dates') ?? '';
         $dates = is_string($dates) ? explode(' - ', $dates) : [];
 
         $check_in = $dates[0] ?? null;
@@ -87,7 +87,21 @@
 
         <div class="line-div"></div>
         <p>Valor total: <span class="total-value">€{{$total_w_tax}}</span></p>
-        <button type="submit" class="btn-reserve">Reservar</button>
+        <form method="POST" action="{{ route('payment', ['id', $property['property_id']]) }}">
+            @csrf
+            <input type="hidden" name="property_id" value="{{ $property['property_id'] }}">
+            <input type="hidden" name="property_name" value="{{ $property['property_name'] }}">
+            <input type="hidden" name="property_price" value="{{ $property['property_price'] }}">
+            <input type="hidden" name="check_in" value="{{ $check_in }}">
+            <input type="hidden" name="check_out" value="{{ $check_out }}">
+            <input type="hidden" name="total_price" value="{{ $total_w_tax }}">
+            @if(session('access_token'))
+            <button type="submit" class="btn-reserve">Reservar</button>
+            @else
+            <a href="/login" class="btn-reserve">Reservar</a>
+
+            @endif
+        </form>
         @else
         <p class="error">Não selecionou nenhuma data</p>
         @endif

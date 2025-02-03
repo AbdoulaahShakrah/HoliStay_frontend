@@ -3,8 +3,16 @@ var priceMin = document.getElementById("price-min");
 var priceMax = document.getElementById("price-max");
 
 
+//Para fazer o set dos inputs
+let params = new URLSearchParams(window.location.search);
+let minVal = params.get("propertyPrice[gte]") || 10;
+let maxVal = params.get("propertyPrice[lte]") || 1000;
+
+priceMin.value = minVal;
+priceMax.value = maxVal;
+
 noUiSlider.create(slider, {
-    start: [0, 1000],
+    start: [minVal, maxVal], // Usa os valores do request
     connect: true,
     orientation: "horizontal",
     range: {
@@ -29,20 +37,16 @@ priceMax.addEventListener("change", function () {
     slider.noUiSlider.set([null, this.value]);
 });
 
-document
-    .getElementById("submit_btn")
-    .addEventListener("click", function (event) {
-        event.preventDefault();
-        let minVal = priceMin.value;
-        let maxVal = priceMax.value;
+document.getElementById("submit_btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    let minVal = priceMin.value;
+    let maxVal = priceMax.value;
 
-        let currentUrl = new URL(window.location.href);
-        let params = new URLSearchParams(currentUrl.search);
+    let currentUrl = new URL(window.location.href);
+    let params = new URLSearchParams(currentUrl.search);
 
-        params.set("propertyPrice[gte]", minVal);
-        params.set("propertyPrice[lte]", maxVal);
+    params.set("propertyPrice[gte]", minVal);
+    params.set("propertyPrice[lte]", maxVal);
 
-        window.location.href = currentUrl.pathname + "?" + params.toString();
-
-
-    });
+    window.location.href = currentUrl.pathname + "?" + params.toString();
+});
