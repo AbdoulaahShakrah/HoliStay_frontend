@@ -31,17 +31,24 @@
 }
 
 .menu{
-    position:static;
+    position:relative;
     background-color: #f26d21;
-    width: 90px;
-    height: 100%;
+    width: 250px;
+    /*width: 90px;*/
+    height: auto;
     padding: 20px;
+    top: 0; /* Alinha no topo do pai */
+    left: 0; /* Alinha à esquerda do pai */
+    box-sizing: border-box; /* Garante que o padding não aumente a altura */
     overflow: hidden;
     transition: .5s;
+    border-top-right-radius: 15px; /* Arredonda o canto superior direito */
+    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
 }
 
 .menu:hover {
-    width: 220px;
+    width: 250px;
+    height: auto;
     border-top-right-radius: 15px; /* Arredonda o canto superior direito */
     border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
 }
@@ -69,10 +76,10 @@ ul li a:hover, td:hover, .data-info .box:hover{
     background-color: #3b48bb81;
 }
 
-.log-out{
-    position:static;
-    margin-inline-end: 50px;
-    width: 100%;
+.log-out {
+    position: absolute; /* Posiciona o elemento em relação ao componente pai */
+    bottom: 0; /* Alinha na parte inferior */
+    width: 100%; /* Ou ajuste conforme necessário */
 }
 
 .log-out a:hover{

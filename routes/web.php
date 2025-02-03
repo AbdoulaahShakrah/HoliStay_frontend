@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\HostHomePageController;
+use App\Http\Controllers\HostPropertyController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,12 @@ Route::get('/search', [PropertyController::class, 'results'])->name('search.resu
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'login_confirmation'])->name('login.confirmation');
 
-
 Route::get('/hostHome', [HostHomePageController::class, 'index'])->name('hostHome');
+Route::get('/hostProperty/{id}', [HostPropertyController::class, 'show'])->name('hostProperty.details');
 
 //rota para fazer testes
 Route::get('/test', function(){
+    //return view('pages.host.host-property-details');
     return view('pages.host.host-homepage');
 });
 

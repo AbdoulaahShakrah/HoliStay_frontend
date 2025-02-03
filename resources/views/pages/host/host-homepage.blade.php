@@ -5,82 +5,77 @@
 
 @section('content')
 <div class="properties-section">
-    <h3>Alojamentos para Casais</h3>
+    <h2>As minhas propriedades</h2>
     <div class="properties-grid">
-       
-        <div class="property-card" onclick="submitSearch('Iceland', 74, 2)">
-            <img src="{{ asset('images/homepage/1.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
-                <h4>Iceland</h4>
-                <p>Casa de férias para 2 pessoas, com sauna, com animais de estimação</p>
-                <p class="price">A partir de €74 por noite</p>
-                <div class="property-rating">
-                    <span class="star">★</span> 5
-                </div>
-            </div>
-        </div>
-        <div class="property-card" onclick="submitSearch('France', 110)">
-            <img src="{{ asset('images/homepage/2.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
-                <h4>França</h4>
-                <p>Casa de férias para 2 pessoas, com sauna, com animais de estimação</p>
-                <p class="price">A partir de €110 por noite</p>
-                <div class="property-rating">
-                    <span class="star">★</span> 5
-                </div>
-            </div>
-        </div>
-        <div class="property-card" onclick="submitSearch('Canada', 200)">
-            <img src="{{ asset('images/homepage/3.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
-                <h4>Canada</h4>
-                <p>Casa de férias para 2 pessoas, com sauna, com animais de estimação</p>
-                <p class="price">A partir de €200 por noite</p>
-                <div class="property-rating">
-                    <span class="star">★</span> 5
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="properties-section">
-    <h3>Alojamentos para Familias</h3>
-    <div class="properties-grid" onclick="submitSearch('Grécia', 200)">
+
         <div class="property-card">
-            <img src="{{ asset('images/homepage/4.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
-                <h4>Grécia</h4>
-                <p>Casa de férias para 2 pessoas, com varanda, com animais de estimação</p>
-                <p class="price">A partir de €110 por noite</p>
-                <div class="property-rating">
-                    <span class="star">★</span> 5
+            <div class="top-side">
+                <div class="image">
+                    <img src="{{ asset('images/homepage/1.webp') }}" loading="lazy" alt="Imagem do Alojamento">
+                </div>
+                <div class="price-content">
+                    <p class="active-price">Active Price</p>
+                    <h4 class="price">150€</h4>
+                </div>
+                <div class="card-buttons">
+                    <button class="edit-btn">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="delete-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="bottom-side">
+                <div class="title">
+                    <p class="property-type">Apartment</p>
+                    <h4 class="location">Beja, Portugal</h4>
+                </div>
+                <div class="more-details">
+                    <a href="#">Ver Mais Detalhes</a>
+                </div>
+                <div class="status">
+                <button class="reserved-btn">✔ Reservado</button>
                 </div>
             </div>
         </div>
-        <div class="property-card" onclick="submitSearch('Catar', 17)">
-            <img src="{{ asset('images/homepage/5.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
-                <h4>Catar</h4>
-                <p>Casa de férias para 2 pessoas, com varanda, com animais de estimação</p>
-                <p class="price">A partir de €17 por noite</p>
-                <div class="property-rating">
-                    <span class="star">★</span> 5
+
+        <div class="property-card">
+            <div class="top-side">
+                <div class="image">
+                    <img src="{{ asset('images/homepage/4.webp') }}" loading="lazy" alt="Imagem do Alojamento">
+                </div>
+                <div class="price-content">
+                    <p class="active-price">Active Price</p>
+                    <h4 class="price">200€</h4>
+                </div>
+                <div class="card-buttons">
+                    <button class="edit-btn">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="delete-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="bottom-side">
+                <div class="title">
+                    <p class="property-type">House</p>
+                    <h4 class="location">Lisboa, Portugal</h4>
+                </div>
+                <div class="more-details">
+                    <a href="#">Ver Mais Detalhes</a>
+                </div>
+                <div class="status">
+                <button class="reserved-btn">✔ Reservado</button>
                 </div>
             </div>
         </div>
-        <div class="property-card" onclick="submitSearch('Portugal', 300)">
-            <img src="{{ asset('images/homepage/6.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
-                <h4>Portugal</h4>
-                <p>Casa de férias para 2 pessoas, com varanda, com animais de estimação</p>
-                <p class="price">A partir de €300 por noite</p>
-                <div class="property-rating">
-                    <span class="star">★</span> 5
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+
+        
 </div>
 <form id="searchForm" method="POST" --action="{{ route('customSearch') }}" style="display: none;">
     @csrf

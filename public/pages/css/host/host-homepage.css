@@ -1,6 +1,11 @@
 /* Container principal */
 .properties-section {
     margin: 20px 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+    display: flex; /* Ativa o flexbox */
+    flex-direction: column;
 }
 
 .properties-section h3 {
@@ -11,17 +16,22 @@
 
 /* Grid para os cartões */
 .properties-grid {
-    display: grid;
+    display: table-column;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
 
-/* Cartões */
+/* Cartão */
 .property-card {
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #FBEFEF;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: auto;
+    height: auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -30,51 +40,110 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Imagem do cartão */
-.property-card img {
-    width: 100%;
-    height: 250px;
+/* Parte superior do cartão */
+.top-side {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+    gap: 10px;
+}
+
+/* Imagem */
+.image img {
+    width: auto;
+    max-width: 400px;
+    height: auto;
+    max-height: 300px;
+    border-radius: 10px;
     object-fit: cover;
 }
 
-/* Conteúdo do cartão */
-.property-card .property-content {
-    padding: 15px;
-    display: flex;
+/* Preço */
+.price-content {
     flex-direction: column;
+    align-items: start;
+    align-content: center;
+}
+
+.active-price {
+    font-size: 20px;
+    color: #666;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Botões de ação */
+.card-buttons {
+    justify-self: end;
+    align-items:start;
+    align-content:end;
+    display: flex;
     gap: 8px;
 }
 
-.property-card .property-content h4 {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-}
-
-.property-card .property-content p {
-    font-size: 0.9rem;
+.card-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 28px;
     color: #666;
-    margin: 0;
 }
 
-.property-card .property-content .price {
-    font-weight: bold;
-    color: #007BFF;
+.card-buttons button:hover {
+    color: #000;
 }
 
-
-/* Estrela e pontuação */
-.property-rating {
+/* Parte inferior do cartão */
+.bottom-side {
     display: flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #28A745;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
 }
 
-.property-rating .star {
-    color: #FFD700;
-    font-size: 1rem;
+/* Título */
+.property-type {
+    font-size: 20px;
+    color: #888;
 }
+
+.location {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Link "Ver Mais Detalhes" */
+.more-details a {
+    text-decoration: underline;
+    font-size: 18px;
+    color: #007bff;
+}
+
+.more-details a:hover {
+    text-decoration: underline;
+    color: #04027d;
+}
+
+/* Botão de Reservado */
+.status {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.reserved-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
