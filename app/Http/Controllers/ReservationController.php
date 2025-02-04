@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Http;
 class ReservationController extends Controller
 {
 
-    public function my_reservations($id){
+    public function my_reservations()
+    {
         $fullToken = session('access_token');
         $tokenParts = explode('|', $fullToken);
         $cleanToken = $tokenParts[1] ?? $fullToken;
 
-        $response = Http::withToken($cleanToken)->get("http://127.0.0.1:8000/api/v1/reservations/by-client?client_id=".$id);
+        $response = Http::withToken($cleanToken)->get("http://127.0.0.1:8000/api/v1/reservations/by-client?client_id=" . session('client_id'));
+        
         $reservations = $response->json()['data'];
+        session()->flash('success', 'Reservas carregadas com sucesso!');
+
         return view('pages.client.my-reservations', compact('reservations'));
     }
 
@@ -26,7 +30,7 @@ class ReservationController extends Controller
     }
 
 
-        /*
+    /*
     {
     "propertyId": 21,
     "clientId": 10,
@@ -42,18 +46,15 @@ class ReservationController extends Controller
         $tokenParts = explode('|', $fullToken);
         $cleanToken = $tokenParts[1] ?? $fullToken;
 
-        $check_in_format = DateTime::createFromFormat('d-m-Y', $request->input('check_in'));        
+        $check_in_format = DateTime::createFromFormat('d-m-Y', $request->input('check_in'));
         $check_out_format = DateTime::createFromFormat('d-m-Y', $request->input('check_out'));
 
-        if($check_in_format){
+        if ($check_in_format) {
             $check_in = $check_in_format->format('Y-m-d') . ' 12:00:00';
             $check_out = $check_out_format->format('Y-m-d') . ' 12:00:00';
-
-        }
-        else{
+        } else {
             $check_in = $request->input('check_in') . ' 12:00:00';
             $check_out = $request->input('check_out') . ' 12:00:00';
-
         }
 
         $response_reservations = Http::withToken($cleanToken)->post(
@@ -74,6 +75,6 @@ class ReservationController extends Controller
                 "paymentMethod" => $request->input('payment_method')
             ]
         );
-        return redirect()->route('my.reservations', session('client_id'));
+        return redirect()->route('my.reservations');
     }
 }

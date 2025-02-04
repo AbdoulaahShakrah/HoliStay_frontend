@@ -18,11 +18,11 @@
             <span>Minhas Reservas</span>
         </a>
         @elseif(session('role') == 'host')
-        <a href="/minha-propriedade">
+        <a href="/hostProperties">
             <i class="fa fa-home"></i>
             <span>Minhas Propriedades</span>
         </a>
-        <a href="/reservas">
+        <a href="/my-reservations">
             <i class="fa fa-calendar-check"></i>
             <span>Minhas Reservas</span>
 

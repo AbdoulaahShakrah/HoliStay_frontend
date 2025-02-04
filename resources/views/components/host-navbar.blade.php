@@ -2,7 +2,7 @@
 
 <header class="header">
     <div class="left-side">
-        <a href="#" class="holistay_logo">
+        <a href="/home" class="holistay_logo">
             <img src="{{ asset('/images/holistay_logo.png') }}" alt="HoliStay Logo" />
         </a>
     </div>

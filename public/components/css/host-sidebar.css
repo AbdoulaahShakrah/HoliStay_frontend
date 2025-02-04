@@ -46,12 +46,7 @@
     border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
 }
 
-.menu:hover {
-    width: 250px;
-    height: auto;
-    border-top-right-radius: 15px; /* Arredonda o canto superior direito */
-    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
-}
+
 
 ul{
     list-style: none;
@@ -59,7 +54,7 @@ ul{
     height: 95%;
 }
 
-ul li a{
+ul li .side-bar-a{
     display: block;
     text-decoration: none;
     padding: 10px;
@@ -72,21 +67,21 @@ ul li a{
     color: white; /* Ajuste conforme necessário */
 }
 
-ul li a:hover, td:hover, .data-info .box:hover{
+ul li .side-bar-a:hover, td:hover, .data-info .box:hover{
     background-color: #3b48bb81;
 }
 
 .log-out {
-    position: absolute; /* Posiciona o elemento em relação ao componente pai */
-    bottom: 0; /* Alinha na parte inferior */
-    width: 100%; /* Ou ajuste conforme necessário */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .log-out a:hover{
     background-color: rgba(255, 3, 3, 0.657);
 }
 .log-out a{
-    background-color: #cf30103a;
+    background-color: red;
 }
 
 ul li a i{
@@ -98,4 +93,45 @@ ul li a i{
     width: 100%;
     margin: 10px;
 }
+/* Estilos gerais */
+.hamburger {
+    display: none; /* Esconde o botão de menu hamburger por padrão */
+}
 
+/* Estilos para telas com largura de 800px ou menos */
+@media (max-width: 800px) {
+    .menu {
+        display: none; /* Esconde o menu lateral */
+    }
+
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background-color: #f26d21;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .hamburger i {
+        font-size: 24px;
+        color: white;
+    }
+
+    .menu.active {
+        display: block; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #f26d21;
+        padding: 20px;
+        box-sizing: border-box;
+        transition: .5s;
+        z-index: 999;
+    }
+}
