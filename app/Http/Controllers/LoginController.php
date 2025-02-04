@@ -26,6 +26,7 @@ class LoginController extends Controller
                 $token = $response->json('access_token');
                 $role = $response->json('role');
                 $client_id = $response->json('client_id');
+                
                 session(['access_token' => $token, 'role' => $role, 'client_id' => $client_id]);
                 
                 return redirect()->route('home');
