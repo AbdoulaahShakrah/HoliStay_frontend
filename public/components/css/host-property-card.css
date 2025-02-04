@@ -1,51 +1,125 @@
-.property {
-    background: #f9f5f2;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    overflow: hidden;
-    width: 100%;
-    max-width: 400px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 10px;
-    
-}
-
-.property-link{
+/* Cartão */
+.property-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-}
-
-.property:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.property img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-.property .details {
+    background-color: #FBEFEF;
+    border-radius: 12px;
     padding: 15px;
+    margin: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: auto;
+    height: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.property h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 5px;
+.property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.property p {
-    font-size: 0.9rem;
+/* Parte superior do cartão */
+.top-side {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+    gap: 10px;
+}
+
+/* Imagem */
+.image img {
+    width: auto;
+    max-width: 400px;
+    height: auto;
+    max-height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Preço */
+.price-content {
+    flex-direction: column;
+    align-items: start;
+    align-content: center;
+}
+
+.active-price {
+    font-size: 20px;
     color: #666;
 }
 
-.property .price {
-    font-size: 1.2rem;
+.price {
+    font-size: 28px;
     font-weight: bold;
-    color: #d3925b;
+    color: #000;
+}
+
+/* Botões de ação */
+.card-buttons {
+    justify-self: end;
+    align-items:start;
+    align-content:end;
+    display: flex;
+    gap: 8px;
+}
+
+.card-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 28px;
+    color: #666;
+}
+
+.card-buttons button:hover {
+    color: #000;
+}
+
+/* Parte inferior do cartão */
+.bottom-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+/* Título */
+.property-type {
+    font-size: 20px;
+    color: #888;
+}
+
+.location {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Link "Ver Mais Detalhes" */
+.more-details a {
+    text-decoration: underline;
+    font-size: 18px;
+    color: #007bff;
+}
+
+.more-details a:hover {
+    text-decoration: underline;
+    color: #04027d;
+}
+
+/* Botão de Reservado */
+.status {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.reserved-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
 }

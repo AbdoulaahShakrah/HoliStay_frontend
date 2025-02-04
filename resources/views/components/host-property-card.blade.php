@@ -1,13 +1,36 @@
 <link rel="stylesheet" href="{{ asset('components/css/host-property-card.css') }}">
 
-<div class="property">
-<a class="property-link" href="{{ route('property.details', ['id' => $property['property_id'], 'dates' => session('dates')]), 'guests' => se}}">
-        <img src="{{ asset('images/homepage/1.webp') }}" alt="Imagem do Alojamento">
-
-        <div class="details">
-            <h2>{{ $property['property_name'] }}</h2>
-            <p>{{ $property['property_country'] }}, {{ $property['property_city'] }}</p>
-            <p class="price">€{{ number_format($property['property_price'], 2, ',', '.') }}</p>
+<div class="properties-grid">
+    <div class="property-card">
+        <div class="top-side">
+            <div class="image">
+                <img src="{{ asset('images/homepage/1.webp') }}" loading="lazy" alt="Imagem do Alojamento">
+            </div>
+            <div class="price-content">
+                <p class="active-price">Active Price</p>
+                <h4 class="price">{{ $property['property_price'] }} €</h4>
+            </div>
+            <div class="card-buttons">
+                <button class="edit-btn">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         </div>
-    </a>
+        <div class="bottom-side">
+            <div class="title">
+                <p class="property-type">{{ $property['property_name'] }}</p>
+                <p class="property-type">{{ $property['property_type'] }}</p>
+                <h4 class="location">{{ $property['property_city'] }}, {{ $property['property_country'] }}</h4>
+            </div>
+            <div class="more-details">
+                <a href="#">Ver Mais Detalhes</a>
+            </div>
+            <div class="status">
+                <button class="reserved-btn">✔ Reservado</button>
+            </div>
+        </div>
+    </div>
 </div>
