@@ -14,8 +14,8 @@
     <div class="center-side">
         <div class="reservation-info">
             <h2> Informações da reserva</h2>
-            <p>Nome do cliente: <span>Luis de roxa</span></p>
-            <p>Telefone: <span> 912345678 </span></p>
+            <p>Nome do cliente: <span>{{$reservation['property']['host']['client']['client_name']}}</span></p>
+            <p>Telefone: <span> {{$reservation['property']['host']['client']['phone_number']}} </span></p>
             <p>Número de hóspedes: <span>{{$reservation['property']['property_capacity']}}</span></p>
             <p>Preço total: €<span class="price"> {{$reservation['reservation_amount']}} </p>
         </div>

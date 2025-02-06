@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\HostHomePageController;
@@ -41,6 +42,7 @@ Route::get('/hostProperties', [HostHomePageController::class, 'hostProperties'])
 
 
 
+Route::get('/AnalyticsPage', [AnalyticsController::class, 'setAnalyticsPage'])->name('setAnalyticsPage');
 
 //rota para fazer testes
 Route::get('/test', function(){

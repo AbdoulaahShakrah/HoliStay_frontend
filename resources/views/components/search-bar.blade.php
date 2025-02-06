@@ -88,7 +88,7 @@
 <div class="search-categories">
     @foreach(session('categories') as $category)
     <form action="{{route('catagorySearch')}}" method="POST">
-        @csrf <!-- Token de segurança obrigatório para POST -->
+        @csrf
 
         <input type="hidden" name="category" value="{{$category}}">
         <button type="submit">
