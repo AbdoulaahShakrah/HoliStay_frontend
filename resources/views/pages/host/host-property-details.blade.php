@@ -6,92 +6,156 @@
 @section('content')
 <div class="property-details">
     <h1 class="property-title">{{ $property['property_name'] }}</h1>
+
     <div class="slider-location">
         <x-property-slider :photos="$property['photos']" />
     </div>
 
-    <div class="property-info">
-        <p class="property-location"> <i class="fas fa-location-dot"></i> Moradia em: {{ $property['property_city'] }}, {{ $property['property_country'] }}</p>
-
-        <ul class="property-info-list">
-            <div class="info-list-item">
-                <i class="fa fa-users" aria-hidden="true"></i>
-                <li>Cabe <strong>{{ $property['property_capacity'] }}</strong> Hóspedes </li>
-            </div>
-            <div class="info-list-item">
-                <i class="fa fa-door-closed" aria-hidden="true"></i>
-                <li><strong>{{ $property['property_bedrooms'] }}</strong> Quartos</li>
-            </div>
-            <div class="info-list-item">
-                <i class="fa fa-bed" aria-hidden="true"></i>
-                <li><strong>{{ $property['property_beds'] }}</strong> Camas</li>
-            </div>
-            <div class="info-list-item">
-                <i class="fa fa-bath" aria-hidden="true"></i>
-                <li><strong>{{ $property['property_bathrooms'] }}</strong> Casas de banho</li>
-            </div>
-        </ul>
-
-        <p class="property-description">{{ $property['property_description'] }}</p>
-
-        <div class="amenities">
-            @foreach ($property['amenities'] as $amenity)
-            <span class="amenity">{{ $amenity['name'] }}</span>
-            @endforeach
-        </div>
-        @php
-        use Carbon\Carbon;
-        $dates = session('dates') ?? ''; // Garantir que não seja null
-        $dates = is_string($dates) ? explode(' - ', $dates) : [];
-
-        $check_in = $dates[0] ?? null;
-        $check_out = $dates[1] ?? null;
-
-        $cancelation_date = $check_in ? Carbon::parse($check_in)->addDays(-$property['cancellation_policy']) : 'Data inválida';
-        @endphp
-        <p class="cancellation-policy">&#x2714; Cancelamento até dia {{ $cancelation_date  }}</p>
+    <div class="status">
+        <button id="propertyStatusBtn" class="reserved-btn">
+            <span id="statusIcon">✔</span> <span id="statusText">{{ $property['property_status'] }}</span>
+        </button>
     </div>
 
-    <div class="property-pricing">
-        <h2>&euro;{{ $property['property_price'] }} / Noite</h2>
-        @if($check_in && $check_out)
-        <div class="dates">
-            <p>Entrada no dia: {{$check_in}}</p>
-            <p> | </p>
-            <p>Saída no dia: {{ $check_out}}</p>
+    <div class="property-info">
+        <div class="property-left">
+            <h2 class="title-address"> <i class="fas fa-location-dot"></i> Endereço:</h2>
+            <p class="property-address">{{ $property['property_address'] }}</p>
+            <p class="property-address">{{ $property['property_city'] }}, {{ $property['property_country'] }}</p>
+
+            <h2 class="title-price">€ Preço:</h2>
+            <h1 class="property-price">{{ $property['property_price'] }}€ / Dia</h1>
+
+            <h2 class="title-capacity"><i class="fa fa-users" aria-hidden="true"></i> Capacidade:</h2>
+            <p>Hospedes: {{ $property['property_capacity'] }}</p>
+            <p>Quartos: {{ $property['property_bedrooms'] }}</p>
+            <p>Camas: {{ $property['property_beds'] }}</p>
+            <p>WC's: {{ $property['property_bathrooms'] }}</p>
+
+            <div class="amenities">
+                <h2 class="title-price">Comodidades:</h2>
+                <ul class="amenities-list">
+                    @foreach ($property['amenities'] as $amenity)
+                    <li>
+                        <i class="fa fa-{{ $amenity['name'] }}" aria-hidden="true"></i> {{ $amenity['name'] }}
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
 
-        @php
-        $taxes = 0;
-        @endphp
+        <div class="property-right">
+            <div class="property-right-info">
+                <h2 class="title-address">Detalhes da Reserva:</h2>
+                <h3 class="reserved-by">Reservado por:</h3>
+                <p id="client_id">{{ $reservations[0]['client_id'] }}</p>
 
-        <div class="value-item">
-            @foreach ($property['taxes'] as $tax)
-            <p class="tax-name">{{$tax['tax_name']}}: </p>
-            <p class="tax-value">€{{$tax['tax_value']}}</p>
-            @php
-            $taxes += $tax['tax_value'];
-            @endphp
-            @endforeach
+                <h3 class="dates">Datas:</h3>
+                <p>Check-in: <span id="check_in_date">{{ $reservations[0]['check_in_date'] }}</span></p>
+                <p>Check-out: <span id="check_out_date">{{ $reservations[0]['check_out_date'] }}</span></p>
+
+                <h3 class="guest-contact">Contacto:</h3>
+                <p id="contact">{{ $reservations[0]['client_id'] }}</p>
+
+                <h3 class="value-payed">Valor Pago (€):</h3>
+                <p><span id="reservation_amount">{{ $reservations[0]['reservation_amount'] }}</span> €</p>
+
+                <!-- Botões de navegação entre reservas -->
+                <div class="buttons-container">
+                    <button class="prevBtn" id="prevBtn">← Anterior</button>
+                    <button class="nextBtn" id="nextBtn">Próximo →</button>
+                </div>
+
+                <!-- Todas as reservas no atributo data -->
+                <div id="reservationsData" data-reservations='@json($reservations)'></div>
+            </div>
+            <a href="{{ route('hostProperty.edit', ['id' => $property['property_id']]) }}" class="btn-edit">Editar Propriedade</a>
         </div>
-
-        @php
-        $total_w_tax = session('difference') * $property['property_price'] + $taxes;
-        $total = session('difference') * $property['property_price'];
-        @endphp
-
-        <div class="value-item">
-            <p class="tax-name">{{session('difference')}} Dias x {{$property['property_price']}}</p>
-            <p class="tax-value">€{{$total}}</p>
-        </div>
-
-        <div class="line-div"></div>
-        <p>Valor total: <span class="total-value">€{{$total_w_tax}}</span></p>
-        <button type="submit" class="btn-reserve">Reservar</button>
-        @else
-        <p class="error">Não selecionou nenhuma data</p>
-        @endif
-
     </div>
 </div>
 @endsection
+
+
+
+<!--Função para navegar nas reservas existentes para a propriedade-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let reservations = JSON.parse(document.getElementById('reservationsData').dataset.reservations);
+        let currentIndex = 0;
+
+        let prevBtn = document.getElementById('prevBtn');
+        let nextBtn = document.getElementById('nextBtn');
+
+        // Oculta os botões se houver 0 ou 1 reserva
+        if (reservations.length <= 1) {
+            prevBtn.style.display = "none";
+            nextBtn.style.display = "none";
+            return; // Para evitar a execução desnecessária do restante do script
+        }
+
+        function updateReservation(index) {
+            document.getElementById('client_id').innerText = reservations[index]['client_id'];
+            document.getElementById('check_in_date').innerText = reservations[index]['check_in_date'];
+            document.getElementById('check_out_date').innerText = reservations[index]['check_out_date'];
+            document.getElementById('contact').innerText = reservations[index]['client_id'];
+            document.getElementById('reservation_amount').innerText = reservations[index]['reservation_amount'];
+        }
+
+        prevBtn.addEventListener("click", function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateReservation(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener("click", function () {
+            if (currentIndex < reservations.length - 1) {
+                currentIndex++;
+                updateReservation(currentIndex);
+            }
+        });
+    });
+</script>
+
+<!-- Script para ajustar o icone e côr do campo do estado da propriedade (Ocupado/Disponivel)-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let statusBtn = document.getElementById("propertyStatusBtn");
+        let statusText = document.getElementById("statusText");
+        let statusIcon = document.getElementById("statusIcon");
+        
+        let reservationsData = document.getElementById("reservationsData");
+        let reservations = JSON.parse(reservationsData.dataset.reservations);
+
+        function isPropertyOccupied() {
+            let today = new Date();
+
+            for (let reservation of reservations) {
+                let checkInDate = new Date(reservation.check_in_date);
+                let checkOutDate = new Date(reservation.check_out_date);
+
+                // Verifica se a data atual está dentro do intervalo da reserva
+                if (today >= checkInDate && today <= checkOutDate) {
+                    return true; // Ocupado
+                }
+            }
+
+            return false; // Disponível
+        }
+
+        function updateStatusUI(isOccupied) {
+            if (isOccupied) {
+                statusText.innerText = "Ocupado";
+                statusBtn.style.backgroundColor = "#dc3545"; // Vermelho
+                statusIcon.innerText = "✖"; // Ícone de X para ocupado
+            } else {
+                statusText.innerText = "Disponivel";
+                statusBtn.style.backgroundColor = "#28a745"; // Verde
+                statusIcon.innerText = "✔"; // Checkmark para disponível
+            }
+        }
+
+        // Atualiza o estado com base na data atual
+        updateStatusUI(isPropertyOccupied());
+    });
+</script>

@@ -1,4 +1,19 @@
-
+.menu{
+    min-width: 250px;
+    position:relative;
+    background-color: #f26d21;
+    width: 250px;
+    /*width: 90px;*/
+    height: auto;
+    padding: 20px;
+    top: 0; /* Alinha no topo do pai */
+    left: 0; /* Alinha à esquerda do pai */
+    box-sizing: border-box; /* Garante que o padding não aumente a altura */
+    overflow: hidden;
+    transition: .5s;
+    border-top-right-radius: 15px; /* Arredonda o canto superior direito */
+    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
+}
 .img_box {
     width: 50px;
     height: 50px;
@@ -29,24 +44,6 @@
     text-transform: capitalize;
     color: white; /* Ajuste conforme necessário */
 }
-
-.menu{
-    position:relative;
-    background-color: #f26d21;
-    width: 250px;
-    /*width: 90px;*/
-    height: auto;
-    padding: 20px;
-    top: 0; /* Alinha no topo do pai */
-    left: 0; /* Alinha à esquerda do pai */
-    box-sizing: border-box; /* Garante que o padding não aumente a altura */
-    overflow: hidden;
-    transition: .5s;
-    border-top-right-radius: 15px; /* Arredonda o canto superior direito */
-    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
-}
-
-
 
 ul{
     list-style: none;

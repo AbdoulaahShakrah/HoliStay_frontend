@@ -8,7 +8,7 @@
     </div>
     <div class="right-side">
         <button type="button">
-            <a href="#">Adicionar uma propriedade</a>
+            <a href="{{ route('hostProperty.create') }}">Adicionar uma propriedade</a>
         </button>
 
         <!-- Logout -->
