@@ -48,14 +48,14 @@
             <div class="property-right-info">
                 <h2 class="title-address">Detalhes da Reserva:</h2>
                 <h3 class="reserved-by">Reservado por:</h3>
-                <p id="client_id">{{ $reservations[0]['client_id'] }}</p>
+                <p id="client_id">{{ $reservations[0]['client']['client_name'] }}</p>
 
                 <h3 class="dates">Datas:</h3>
                 <p>Check-in: <span id="check_in_date">{{ $reservations[0]['check_in_date'] }}</span></p>
                 <p>Check-out: <span id="check_out_date">{{ $reservations[0]['check_out_date'] }}</span></p>
 
                 <h3 class="guest-contact">Contacto:</h3>
-                <p id="contact">{{ $reservations[0]['client_id'] }}</p>
+                <p id="contact">{{ $reservations[0]['client']['phone_number'] }}</p>
 
                 <h3 class="value-payed">Valor Pago (€):</h3>
                 <p><span id="reservation_amount">{{ $reservations[0]['reservation_amount'] }}</span> €</p>
