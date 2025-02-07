@@ -3,7 +3,7 @@
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\HostHomePageController;
+use App\Http\Controllers\HostPropertyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ReservationController;
@@ -29,18 +29,22 @@ Route::post('/process-payment', [ReservationController::class, 'store_reservatio
 
 Route::get('/my-reservations', [ReservationController::class, 'my_reservations'])->name('my.reservations');
 
-
 Route::get('/search', [PropertyController::class, 'results'])->name('search.results');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'login_confirmation'])->name('login.confirmation');
 
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-Route::get('/hostHome', [HostHomePageController::class, 'index'])->name('hostHome');
-Route::get('/hostProperties', [HostHomePageController::class, 'hostProperties'])->name('hostProperties');
+Route::get('/hostProperties', [HostPropertyController::class, 'hostProperties'])->name('hostProperties');
+Route::get('/hostProperty/{id}', [HostPropertyController::class, 'propertyDetails'])->name('hostProperty.details');
 
+Route::get('/hostPropertyCreate', [HostPropertyController::class, 'create'])->name('hostProperty.create');
+Route::post('/hostProperty/store', [HostPropertyController::class, 'store'])->name('hostProperty.store');
 
+Route::get('/hostPropertyCreate/{id}', [HostPropertyController::class, 'edit'])->name('hostProperty.edit');
+Route::put('/hostProperty/update/{id}', [HostPropertyController::class, 'update'])->name('hostProperty.update');
 
+Route::delete('/hostProperty/delete/{id}', [HostPropertyController::class, 'delete'])->name('hostProperty.delete');
 
 Route::get('/AnalyticsPage', [AnalyticsController::class, 'setAnalyticsPage'])->name('setAnalyticsPage');
 

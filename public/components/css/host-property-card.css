@@ -62,24 +62,28 @@
     gap: 8px;
 }
 
-.card-buttons button {
+.card-buttons button{
     background: none;
     border: none;
     cursor: pointer;
     padding: 5px;
     font-size: 28px;
+}
+
+.card-buttons  a{
     color: #666;
 }
 
-.card-buttons button:hover {
+.card-buttons a:hover {
     color: #000;
 }
 
 /* Parte inferior do cartão */
 .bottom-side {
+    position:relative;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     padding-top: 10px;
 }
@@ -97,6 +101,8 @@
 
 /* Link "Ver Mais Detalhes" */
 .more-details a {
+    position: absolute;
+    align-items:flex-end;
     text-decoration: underline;
     font-size: 18px;
     color: #007bff;
@@ -109,13 +115,13 @@
 
 /* Botão de Reservado */
 .status {
-    display: flex;
-    justify-content: flex-start;
+    position: absolute;
+    align-items: flex-end;
+    right: 0; /* Empurra totalmente para a direita */
     padding-top: 10px;
 }
 
 .reserved-btn {
-    background-color: #28a745;
     color: white;
     border: none;
     padding: 8px 12px;

@@ -9,7 +9,7 @@
     <h2>As minhas propriedades</h2>
 
     @foreach($properties as $property)
-    <x-host-property-card :property="$property" />
+    <x-host-property-card :property="$property"/>
     @endforeach
 
 </div>

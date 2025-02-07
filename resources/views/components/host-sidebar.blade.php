@@ -16,7 +16,7 @@
             <h2>HoliStay</h2>
         </li>
         <li>
-            <a href="#" class="side-bar-a">
+            <a href="{{ route('hostProperties') }}" class="side-bar-a">
                 <i class="fas fa-home"></i>
                 <p>Propriedades</p>
             </a>
@@ -34,7 +34,7 @@
             </a>
         </li>
         <li class="log-out">
-            <a href="#" class="side-bar-a">
+            <a href="/logout" class="side-bar-a">
                 <i class="fas fa-sign-out-alt"></i>
                 <p>Sair</p>
             </a>
