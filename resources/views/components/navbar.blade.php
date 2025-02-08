@@ -13,7 +13,7 @@
 
         @if(session('access_token'))
         @if(session('role') == 'client')
-        <a href="/reservas">
+        <a href="/my-reservations">
             <i class="fa fa-calendar-check"></i>
             <span>Minhas Reservas</span>
         </a>

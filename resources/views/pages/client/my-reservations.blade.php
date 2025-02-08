@@ -14,12 +14,14 @@
   padding: 20px 35px 20px 25px;
   box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transform: translateX(calc(100% + 30px));
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .toast.active {
-  transform: translateX(0%);
+  opacity: 1;
+  visibility: visible;
 }
 
 .toast .toast-content {
@@ -80,7 +82,12 @@
 @endif
 
 <div class="container">
-    @foreach($reservations as $reservation)
+  <div class="reservations-count">
+    <h3>
+      {{$reservations[0]['property']['host']['client']['client_name']}} tem {{count($reservations)}} reservas
+    </h3>
+  </div>
+    @foreach(array_reverse($reservations) as $reservation)
     <x-my-reservation-card :reservation="$reservation" />
     @endforeach
 </div>

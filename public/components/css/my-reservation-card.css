@@ -1,16 +1,20 @@
 .my-reservation-card {
-    background: #fdf7f2;
+    background: #ffffff;
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.12);
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    flex-grow: 1;
-    justify-content: center;
+    gap: 20px;
     transition: box-shadow 0.3s ease-in-out;
 }
 
+.my-reservation-card:hover {
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Topo ---- */
 .top-side {
     display: flex;
     flex-direction: column;
@@ -21,20 +25,25 @@
 .property-details {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
 .property-details img {
-    width: 520px;
-    height: 260px;
-    border-radius: 10px;
+    width: 480px;
+    height: 250px;
+    border-radius: 12px;
     object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.property-details img:hover {
+    transform: scale(1.05);
 }
 
 .property-info h2 {
-    font-size: 22px;
-    color: #007bff;
+    font-size: 24px;
+    color: #0056b3;
     margin: 0;
 }
 
@@ -44,30 +53,31 @@
     margin: 0;
 }
 
+/* ---- Data de check-in/check-out ---- */
 .top-side p {
     font-size: 20px;
     font-weight: bold;
     color: #333;
 }
 
+/* ---- Centro ---- */
 .center-side {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #ddd;
-    padding-top: 14px;
+    border-top: 2px solid #ddd;
+    padding-top: 16px;
     flex-wrap: wrap;
-
 }
 
 .reservation-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .reservation-info h2 {
-    font-size: 18px;
+    font-size: 20px;
     color: #333;
     margin-bottom: 6px;
 }
@@ -82,23 +92,39 @@
     color: #007bff;
 }
 
+/* ---- Status ---- */
 .reservations-status {
-    background: #28a745;
     color: white;
     font-size: 18px;
-    padding: 8px 20px;
-    border-radius: 6px;
+    padding: 10px 22px;
+    border-radius: 8px;
     font-weight: bold;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 }
 
+.reservations-status:hover {
+    transform: scale(1.05);
+}
+
+/* ---- Rodapé ---- */
 .bottom-side {
-    border-top: 1px solid #ddd;
-    padding-top: 14px;
+    border-top: 2px solid #ddd;
+    padding-top: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+}
 
+/* ---- Ações ---- */
+.reservations-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
 .reservations-actions p {
@@ -109,4 +135,84 @@
 .reservations-actions span {
     font-weight: bold;
     color: #ff6600;
+}
+
+/* ---- Botão de Cancelamento ---- */
+.cancel-button {
+    background: linear-gradient(135deg, #dc3545, #b02a37);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.cancel-button:hover {
+    background: linear-gradient(135deg, #b02a37, #841d26);
+    transform: scale(1.05);
+}
+
+.checkin-checkout {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    background: #f8f9fa;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+
+
+.checkin-checkout i {
+    color: #007bff;
+    font-size: 22px;
+}
+
+.date {
+    font-weight: bold;
+    color: #dc3545;
+    font-size: 22px;
+}
+
+/* ---- Responsividade ---- */
+@media (max-width: 768px) {
+    .property-details {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .property-details img {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+    }
+
+    .center-side {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .bottom-side {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .reservations-actions {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
 }

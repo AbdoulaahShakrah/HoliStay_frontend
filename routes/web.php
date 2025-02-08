@@ -28,6 +28,7 @@ Route::post('/process-payment', [ReservationController::class, 'store_reservatio
     ->name('store.payment.reservation');
 
 Route::get('/my-reservations', [ReservationController::class, 'my_reservations'])->name('my.reservations');
+Route::post('/reservations-cancel/{id}', [ReservationController::class, 'reservationCancel'])->name('reservations.cancel');
 
 Route::get('/search', [PropertyController::class, 'results'])->name('search.results');
 Route::get('/login', [LoginController::class, 'login'])->name('login');

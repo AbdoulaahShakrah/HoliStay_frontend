@@ -18,7 +18,6 @@ class ReservationController extends Controller
         $response = Http::withToken($cleanToken)->get("http://127.0.0.1:8000/api/v1/reservations/by-client?client_id=" . session('client_id'));
         
         $reservations = $response->json()['data'];
-        session()->flash('success', 'Reservas carregadas com sucesso!');
 
         return view('pages.client.my-reservations', compact('reservations'));
     }
@@ -75,6 +74,21 @@ class ReservationController extends Controller
                 "paymentMethod" => $request->input('payment_method')
             ]
         );
+        session()->flash('success', 'Reservas carregadas com sucesso!');
+
+        return redirect()->route('my.reservations');
+    }
+
+    public function reservationCancel($id){
+        $fullToken = session('access_token');
+        $tokenParts = explode('|', $fullToken);
+        $cleanToken = $tokenParts[1] ?? $fullToken;
+        $response = Http::withToken($cleanToken)->patch("http://127.0.0.1:8000/api/v1/reservation/". $id, [
+            "reservationStatus" => "Cancelled"
+        ]);
+        $response->successful() ? session()->flash('success', 'Reserva cancelada com sucesso!') : 
+        session()->flash('error', 'Erro ao cancelar reserva!');
+        
         return redirect()->route('my.reservations');
     }
 }

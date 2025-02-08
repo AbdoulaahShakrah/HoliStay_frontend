@@ -9,8 +9,9 @@
 <div class="container">
 
     <div class="price-filter-container">
-        <div class="search-location">Pesquisa em {{ session('location')}} </div>
-
+        @if(session('location'))
+            <div class="search-location">Pesquisa em {{ session('location')}} </div>
+        @endif
         <div class="price-filter-container">
             <x-price-range />
         </div>
@@ -21,9 +22,14 @@
 
 
     @if(empty($properties))
-    <!-- Aqui vem o codigo de não existem propriedades -->
-    <h1>Não existem propriedades para sua pesquisa</h1>
-    @else
+    <div style="margin: 40px auto; padding: 20px; max-width: 600px; text-align: center; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+        <h1 style="font-size: 28px; color: #555; margin-bottom: 10px;">Nenhuma propriedade encontrada</h1>
+        <p style="font-size: 16px; color: #777;">
+            Infelizmente, não existem propriedades para a sua pesquisa.<br>
+            Tente ajustar os filtros e pesquisar novamente.
+        </p>
+    </div>
+     @else
     <!-- Aqui vem o código de existem propriedades -->
     <div class="properties">
         @foreach($properties as $property)

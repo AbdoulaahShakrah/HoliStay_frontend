@@ -1,0 +1,256 @@
+  /* Estilo para o asterisco de campos obrigatórios */
+  .required {
+    color: red;
+    margin-left: 2px;
+}
+
+/* Container Geral */
+.payment-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Cabeçalho */
+.payment-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.payment-header h2 {
+    font-size: 32px;
+    color: #333;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ff833c;
+    display: inline-block;
+}
+
+/* Informações da Reserva */
+.reservation-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reservation-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.reservation-info p {
+    font-size: 18px;
+    color: indianred;
+    margin: 0;
+}
+
+/* Seção Principal */
+.payment-main {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Formulário de Pagamento */
+.payment-form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.payment-form h3 {
+    font-size: 22px;
+    color: #d87d00;
+    margin-bottom: 15px;
+}
+
+.payment-form p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Métodos de Pagamento */
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.radio-label:hover {
+    border-color: #ff833c;
+}
+
+.radio-label input {
+    display: none;
+}
+
+.custom-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 15px;
+    position: relative;
+}
+
+.radio-label input:checked + .custom-radio {
+    border-color: #ff833c;
+    background: #ff833c;
+}
+
+.radio-label input:checked + .custom-radio::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.radio-desc {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Dados do Cartão */
+.card-details {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group.half {
+    flex: 1;
+}
+
+/* Botões */
+.form-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: none;
+}
+
+.cancel-btn {
+    background: #ccc;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background: #b3b3b3;
+}
+
+.confirm-btn {
+    background: #ff833c;
+    color: #fff;
+}
+
+.confirm-btn:hover {
+    background: #ff6a00;
+}
+
+.payment-summary {
+    background: #fff6e6;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-summary h3 {
+    color: #d87d00;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.payment-summary .total-price {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff833c;
+    margin: 10px 0;
+}
+
+.payment-summary .price {
+    font-size: 18px;
+    color: #ff833c;
+}
+.payment-summary .info {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    .payment-main {
+        flex-direction: column;
+    }
+}
