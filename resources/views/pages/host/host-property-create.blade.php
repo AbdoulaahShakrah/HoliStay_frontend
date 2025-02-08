@@ -121,7 +121,7 @@
                         @foreach ($amenities as $amenity)
                         <li>
                             <label>
-                                <input type="checkbox" name="amenities[]" value="{{ $amenity['name'] }}"
+                                <input type="checkbox" name="amenities[]" value="{{ $amenity['amenity_id'] }}"
                                     {{ isset($property) && in_array($amenity['name'], array_column($property['amenities'], 'name')) ? 'checked' : '' }}>
                                 <i class="fa fa-{{ $amenity['name'] }}" aria-hidden="true"></i> {{ $amenity['name'] }}
                             </label>
@@ -135,16 +135,15 @@
                     <label>Fotos:</label>
                     <div id="photo-preview" class="photo-grid"></div>
 
-                    <!-- Botões de Seleção e Remoção de Fotos, alinhados horizontalmente -->
+                    <!-- Botões de Seleção e Remoção de Fotos -->
                     <div class="button-container">
                         <button type="button" id="select-photo-btn" class="btn btn-primary">Adicionar Fotos</button>
                         <button id="remove-photo-btn" class="btn btn-danger" disabled>Remover Foto</button>
                     </div>
 
                     <!-- Input tipo file oculto -->
-                    <input type="file" id="photo-input" name="photos[]" multiple accept="image/*" class="form-control" style="display: none;">
+                    <input type="file" id="photo-input" name="photos[]" value="photos[]" multiple accept="image/*" class="form-control" style="display: none;">
                 </div>
-
             </div>
         </div>
 
@@ -168,6 +167,13 @@
         let selectPhotoBtn = document.getElementById("select-photo-btn");
         let selectedImage = null;
 
+        // Carregar fotos existentes ao iniciar
+        let existingPhotos = @json(isset($property) ? $property['photos'] : []);
+        existingPhotos.forEach(photo => {
+            let photoUrl = "{{ asset('') }}" + photo.photo_url; // Garante que o caminho seja correto
+            addPhotoToPreview(photoUrl);
+        });
+
         // Mostrar o input de file quando clicar no botão "Selecionar Fotos"
         selectPhotoBtn.addEventListener("click", function() {
             photoInput.click(); // Abre o seletor de arquivos
@@ -179,22 +185,7 @@
                     if (file.type.startsWith("image/")) {
                         let reader = new FileReader();
                         reader.onload = function(e) {
-                            let imgContainer = document.createElement("div");
-                            imgContainer.classList.add("image-container");
-
-                            let img = document.createElement("img");
-                            img.src = e.target.result;
-
-                            // Selecionar imagem ao clicar
-                            img.addEventListener("click", function() {
-                                document.querySelectorAll(".image-container img").forEach(el => el.classList.remove("selected"));
-                                img.classList.add("selected");
-                                selectedImage = imgContainer;
-                                removeBtn.disabled = false;
-                            });
-
-                            imgContainer.appendChild(img);
-                            preview.appendChild(imgContainer);
+                            addPhotoToPreview(e.target.result);
                         };
                         reader.readAsDataURL(file);
                     }
@@ -213,9 +204,28 @@
                 }
             });
         }
+
+        // Função para adicionar fotos ao preview
+        function addPhotoToPreview(photoUrl) {
+            let imgContainer = document.createElement("div");
+            imgContainer.classList.add("image-container");
+
+            let img = document.createElement("img");
+            img.src = photoUrl;
+
+            // Selecionar imagem ao clicar
+            img.addEventListener("click", function() {
+                document.querySelectorAll(".image-container img").forEach(el => el.classList.remove("selected"));
+                img.classList.add("selected");
+                selectedImage = imgContainer;
+                removeBtn.disabled = false;
+            });
+
+            imgContainer.appendChild(img);
+            preview.appendChild(imgContainer);
+        }
     });
 </script>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

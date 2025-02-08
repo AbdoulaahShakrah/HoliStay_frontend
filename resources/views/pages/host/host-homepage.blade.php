@@ -8,8 +8,8 @@
 <div class="properties-section">
     <h2>As minhas propriedades</h2>
 
-    @foreach($properties as $property)
-    <x-host-property-card :property="$property"/>
+    @foreach(array_reverse($properties) as $property)
+        <x-host-property-card :property="$property"/>
     @endforeach
 
 </div>

@@ -4,7 +4,7 @@
     <div class="property-card">
         <div class="top-side">
             <div class="image">
-                <img src="{{ asset('images/homepage/1.webp') }}" loading="lazy" alt="Imagem do Alojamento">
+                <img src="{{ asset($property['photos'][0]['photo_url']?? '/images/homepage/1738981652889.jpg') }}" loading="lazy" alt="Imagem do Alojamento">
             </div>
             <div class="price-content">
                 <p class="active-price">Active Price</p>
@@ -43,55 +43,54 @@
 <!-- Script para ajustar o icone e côr do campo do estado da propriedade (Ocupado/Disponivel)-->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-    // Seleciona todos os elementos com a classe 'reservationsData'
-    let reservationElements = document.querySelectorAll('.reservationsData');
+        // Seleciona todos os elementos com a classe 'reservationsData'
+        let reservationElements = document.querySelectorAll('.reservationsData');
 
-    reservationElements.forEach(function(reservationsData) {
-        let reservations = JSON.parse(reservationsData.dataset.reservations);
+        reservationElements.forEach(function(reservationsData) {
+            let reservations = JSON.parse(reservationsData.dataset.reservations);
 
-        let statusBtn = reservationsData.closest('.property-card').querySelector('#propertyStatusBtn');
-        let statusText = reservationsData.closest('.property-card').querySelector('#statusText');
-        let statusIcon = reservationsData.closest('.property-card').querySelector('#statusIcon');
+            let statusBtn = reservationsData.closest('.property-card').querySelector('#propertyStatusBtn');
+            let statusText = reservationsData.closest('.property-card').querySelector('#statusText');
+            let statusIcon = reservationsData.closest('.property-card').querySelector('#statusIcon');
 
-        function getPropertyStatus() {
-            let today = new Date();
-            let hasFutureReservation = false;
+            function getPropertyStatus() {
+                let today = new Date();
+                let hasFutureReservation = false;
 
-            for (let reservation of reservations) {
-                let checkInDate = new Date(reservation.check_in_date);
-                let checkOutDate = new Date(reservation.check_out_date);
+                for (let reservation of reservations) {
+                    let checkInDate = new Date(reservation.check_in_date);
+                    let checkOutDate = new Date(reservation.check_out_date);
 
-                if (today >= checkInDate && today <= checkOutDate) {
-                    return "Ocupado"; // A propriedade está ocupada no momento
+                    if (today >= checkInDate && today <= checkOutDate) {
+                        return "Ocupado"; // A propriedade está ocupada no momento
+                    }
+
+                    if (checkInDate > today) {
+                        hasFutureReservation = true; // Pelo menos uma reserva futura existe
+                    }
                 }
 
-                if (checkInDate > today) {
-                    hasFutureReservation = true; // Pelo menos uma reserva futura existe
+                return hasFutureReservation ? "Reservado" : "Disponível";
+            }
+
+            function updateStatusUI(status) {
+                if (status === "Ocupado") {
+                    statusText.innerText = "Ocupado";
+                    statusBtn.style.backgroundColor = "#dc3545"; // Vermelho
+                    statusIcon.innerText = "✖"; // Ícone de X para ocupado
+                } else if (status === "Reservado") {
+                    statusText.innerText = "Reservado";
+                    statusBtn.style.backgroundColor = "#ffc107"; // Amarelo
+                    statusIcon.innerText = "🕒"; // Ícone de relógio para reservado
+                } else {
+                    statusText.innerText = "Disponível";
+                    statusBtn.style.backgroundColor = "#28a745"; // Verde
+                    statusIcon.innerText = "✔"; // Checkmark para disponível
                 }
             }
 
-            return hasFutureReservation ? "Reservado" : "Disponível";
-        }
-
-        function updateStatusUI(status) {
-            if (status === "Ocupado") {
-                statusText.innerText = "Ocupado";
-                statusBtn.style.backgroundColor = "#dc3545"; // Vermelho
-                statusIcon.innerText = "✖"; // Ícone de X para ocupado
-            } else if (status === "Reservado") {
-                statusText.innerText = "Reservado";
-                statusBtn.style.backgroundColor = "#ffc107"; // Amarelo
-                statusIcon.innerText = "🕒"; // Ícone de relógio para reservado
-            } else {
-                statusText.innerText = "Disponível";
-                statusBtn.style.backgroundColor = "#28a745"; // Verde
-                statusIcon.innerText = "✔"; // Checkmark para disponível
-            }
-        }
-
-        // Atualiza o estado com base nas reservas
-        updateStatusUI(getPropertyStatus());
+            // Atualiza o estado com base nas reservas
+            updateStatusUI(getPropertyStatus());
+        });
     });
-});
-
 </script>

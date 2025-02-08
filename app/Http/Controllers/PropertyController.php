@@ -89,11 +89,23 @@ class PropertyController extends Controller
 
     public function show($id, Request $request)
     {
+        $fullToken = session('access_token');
+        $tokenParts = explode('|', $fullToken);
+        $cleanToken = $tokenParts[1] ?? $fullToken;
+        
         $apiUrl = 'http://127.0.0.1:8000/api/v1/properties/' . $id;
-
+        
+        
         $response = Http::get($apiUrl);
         $property = $response->successful() ? $response->json()['data'] : [];
         
+        if ($property) {
+            $pageVisits = isset($property['page_visits']) ? $property['page_visits'] + 1 : 1;
+            Http::withToken($cleanToken)->patch($apiUrl, [
+                'pageVisits' => $pageVisits,
+            ]);
+        }
+
         return view('pages.client.property-details', compact('property'));
     }
 }
