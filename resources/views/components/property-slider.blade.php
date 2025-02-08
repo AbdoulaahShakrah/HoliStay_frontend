@@ -8,7 +8,6 @@
         @foreach ($photos as $photo)
             <img class="image-item" src="{{ asset($photo['photo_url']) }}">
         @endforeach
-        
     </div>
     <button id="next-slide"
         class="slide-button material-symbols-rounded">chevron_right</button>

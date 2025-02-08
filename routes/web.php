@@ -45,7 +45,7 @@ Route::post('/hostProperty/store', [HostPropertyController::class, 'store'])->na
 Route::get('/hostPropertyCreate/{id}', [HostPropertyController::class, 'edit'])->name('hostProperty.edit');
 Route::put('/hostProperty/update/{id}', [HostPropertyController::class, 'update'])->name('hostProperty.update');
 
-Route::delete('/hostProperty/delete/{id}', [HostPropertyController::class, 'delete'])->name('hostProperty.delete');
+Route::get('/hostProperty/delete/{id}', [HostPropertyController::class, 'delete'])->name('hostProperty.delete');
 
 Route::get('/AnalyticsPage', [AnalyticsController::class, 'setAnalyticsPage'])->name('setAnalyticsPage');
 

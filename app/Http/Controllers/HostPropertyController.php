@@ -55,29 +55,135 @@ class HostPropertyController extends Controller
         $amenities = $this->getAmenities();
 
         return view('pages.host.host-property-create', compact('property', 'amenities'));
-        //return view('pages.host.host-property-details', compact('property'));
     }
 
     public function update($id, Request $request)
     {
-        // Handle the logic for storing a property
+        $fullToken = session('access_token');
+        $tokenParts = explode('|', $fullToken);
+        $cleanToken = $tokenParts[1] ?? $fullToken;
+
+        // Dados a serem enviados no PUT
+        $propertyData = [
+            'hostId' => session('host_id'),
+            'propertyName' => $request->input('name'),
+            'propertyCity' => $request->input('location'),
+            'propertyCountry' => $request->input('country'),
+            'propertyAddress' => $request->input('address'),
+            'propertyBedrooms' => (int) $request->input('rooms'),
+            'propertyBeds' => (int) $request->input('beds'),
+            'propertyCapacity' => (int) $request->input('capacity'),
+            'propertyBathrooms' => (int) $request->input('bathrooms'),
+            'cancellationPolicy' => (int) $request->input('days'),
+            'propertyDescription' => $request->input('description'),
+            'propertyPrice' => (float) $request->input('price'),
+            'propertyType' => $request->input('property_type'),
+            'propertyStatus' => $request->input('status', 'Available'), // Adicionado
+            'amenities' => $request->input('amenities', []),
+        ];
+
+        $response = Http::withToken($cleanToken)
+            ->put("http://127.0.0.1:8000/api/v1/properties/" . $id, $propertyData);
+
+        if ($response->successful()) {
+            return redirect()->route('hostProperties')
+                ->with('success', 'Propriedade atualizada com sucesso!');
+        } else {
+            return back()->withErrors(['error' => 'Erro ao atualizar a propriedade.']);
+        }
     }
 
     public function create(Request $request)
     {
         $amenities = $this->getAmenities();
         return view('pages.host.host-property-create', compact('amenities'));
-        //return view('pages.host.host-property-details', compact('property'));
     }
 
     public function store(Request $request)
     {
-        // Handle the logic for storing a property
+        $fullToken = session('access_token');
+        $tokenParts = explode('|', $fullToken);
+        $cleanToken = $tokenParts[1] ?? $fullToken;
+
+        // Dados a serem enviados no POST
+        $propertyData = [
+            'hostId' => session('host_id'),
+            'propertyName' => $request->input('name'),
+            'propertyCity' => $request->input('location'),
+            'propertyCountry' => $request->input('country'),
+            'propertyAddress' => $request->input('address'),
+            'propertyBedrooms' => (int) $request->input('rooms'),
+            'propertyBeds' => (int) $request->input('beds'),
+            'propertyCapacity' => (int) $request->input('capacity'),
+            'propertyBathrooms' => (int) $request->input('bathrooms'),
+            'cancellationPolicy' => (int) $request->input('days'),
+            'propertyDescription' => $request->input('description'),
+            'propertyPrice' => (float) $request->input('price'),
+            'propertyType' => $request->input('property_type'),
+            'propertyStatus' => $request->input('status', 'Available'),
+        ];
+
+        // Criar a propriedade
+        $response = Http::withToken($cleanToken)
+            ->post("http://127.0.0.1:8000/api/v1/properties", $propertyData);
+
+        if ($response->successful()) {
+            $property = $response->json()['data'];
+            $propertyId = $property['property_id'];
+
+            // Associar comodidades (amenities)
+            foreach ($request->input('amenities', []) as $amenity) {
+                $amenityData = [
+                    'propertyId' => $propertyId,
+                    'amenityId' => $amenity,
+                ];
+                Http::withToken($cleanToken)
+                    ->post("http://127.0.0.1:8000/api/v1/propertyAmenities", $amenityData);
+            }
+
+            // Verifica se há fotos e faz o upload
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    // Obtém a extensão correta
+                    $extension = $photo->getClientOriginalExtension();
+                    // Gera um nome único baseado no timestamp corretamente
+                    $photoName = intval(microtime(true) * 1000) . '.' . $extension;
+                    // Define o caminho correto dentro de `public/`
+                    $destinationPath = public_path('images/homepage');
+                    // Move o arquivo para `public/images/homepage/`
+                    $photo->move($destinationPath, $photoName);
+                    // Caminho relativo para guardar na base de dados
+                    $photoPath = 'images/homepage/' . $photoName;
+                    // Enviar o caminho para a API
+                    $photoData = [
+                        'propertyId' => $propertyId,
+                        'propertyUrl' => $photoPath,
+                    ];
+
+                    Http::withToken($cleanToken)
+                        ->post("http://127.0.0.1:8000/api/v1/photos", $photoData);
+                }
+            }
+            return redirect()->route('hostProperties')
+                ->with('success', 'Propriedade criada com sucesso!');
+        } else {
+            return back()->withErrors(['error' => 'Erro ao criar a propriedade.']);
+        }
     }
 
     public function delete($id, Request $request)
     {
-        // Handle the logic for storing a property
+        $fullToken = session('access_token');
+        $tokenParts = explode('|', $fullToken);
+        $cleanToken = $tokenParts[1] ?? $fullToken;
+
+        $response = Http::withToken($cleanToken)->delete("http://127.0.0.1:8000/api/v1/properties/" . $id);
+        if ($response->successful()) {
+            return redirect()->route('hostProperties')
+                ->with('success', 'Propriedade eliminada com sucesso!');
+        } else {
+            return back()->withErrors(['error' => 'Erro ao eliminar a propriedade.']);
+        }
     }
 
     private function getAmenities()

@@ -47,18 +47,24 @@
         <div class="property-right">
             <div class="property-right-info">
                 <h2 class="title-address">Detalhes da Reserva:</h2>
+
+                @if (!empty($reservations))
                 <h3 class="reserved-by">Reservado por:</h3>
-                <p id="client_id">{{ $reservations[0]['client_id'] }}</p>
+                <p id="client_id">{{ $reservations[0]['client']['client_name'] }}</p>
 
                 <h3 class="dates">Datas:</h3>
                 <p>Check-in: <span id="check_in_date">{{ $reservations[0]['check_in_date'] }}</span></p>
                 <p>Check-out: <span id="check_out_date">{{ $reservations[0]['check_out_date'] }}</span></p>
 
                 <h3 class="guest-contact">Contacto:</h3>
-                <p id="contact">{{ $reservations[0]['client_id'] }}</p>
+                <p id="contact">{{ $reservations[0]['client']['phone_number'] }}</p>
 
                 <h3 class="value-payed">Valor Pago (€):</h3>
                 <p><span id="reservation_amount">{{ $reservations[0]['reservation_amount'] }}</span> €</p>
+                @else
+                <p>De momento não exitem reservas</p>
+                <p>para esta propriedade.</p>
+                @endif
 
                 <!-- Botões de navegação entre reservas -->
                 <div class="buttons-container">
@@ -75,11 +81,9 @@
 </div>
 @endsection
 
-
-
 <!--Função para navegar nas reservas existentes para a propriedade-->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         let reservations = JSON.parse(document.getElementById('reservationsData').dataset.reservations);
         let currentIndex = 0;
 
@@ -101,14 +105,14 @@
             document.getElementById('reservation_amount').innerText = reservations[index]['reservation_amount'];
         }
 
-        prevBtn.addEventListener("click", function () {
+        prevBtn.addEventListener("click", function() {
             if (currentIndex > 0) {
                 currentIndex--;
                 updateReservation(currentIndex);
             }
         });
 
-        nextBtn.addEventListener("click", function () {
+        nextBtn.addEventListener("click", function() {
             if (currentIndex < reservations.length - 1) {
                 currentIndex++;
                 updateReservation(currentIndex);
@@ -119,43 +123,53 @@
 
 <!-- Script para ajustar o icone e côr do campo do estado da propriedade (Ocupado/Disponivel)-->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let statusBtn = document.getElementById("propertyStatusBtn");
-        let statusText = document.getElementById("statusText");
-        let statusIcon = document.getElementById("statusIcon");
-        
+    document.addEventListener("DOMContentLoaded", function() {
+        // Seleciona o elemento que contém os dados das reservas
         let reservationsData = document.getElementById("reservationsData");
         let reservations = JSON.parse(reservationsData.dataset.reservations);
 
-        function isPropertyOccupied() {
+        // Seleciona os elementos do botão de status
+        let statusBtn = document.getElementById("propertyStatusBtn");
+        let statusText = document.getElementById("statusText");
+        let statusIcon = document.getElementById("statusIcon");
+
+        function getPropertyStatus() {
             let today = new Date();
+            let hasFutureReservation = false;
 
             for (let reservation of reservations) {
                 let checkInDate = new Date(reservation.check_in_date);
                 let checkOutDate = new Date(reservation.check_out_date);
 
-                // Verifica se a data atual está dentro do intervalo da reserva
                 if (today >= checkInDate && today <= checkOutDate) {
-                    return true; // Ocupado
+                    return "Ocupado"; // A propriedade está ocupada no momento
+                }
+
+                if (checkInDate > today) {
+                    hasFutureReservation = true; // Pelo menos uma reserva futura existe
                 }
             }
 
-            return false; // Disponível
+            return hasFutureReservation ? "Reservado" : "Disponível";
         }
 
-        function updateStatusUI(isOccupied) {
-            if (isOccupied) {
+        function updateStatusUI(status) {
+            if (status === "Ocupado") {
                 statusText.innerText = "Ocupado";
                 statusBtn.style.backgroundColor = "#dc3545"; // Vermelho
                 statusIcon.innerText = "✖"; // Ícone de X para ocupado
+            } else if (status === "Reservado") {
+                statusText.innerText = "Reservado";
+                statusBtn.style.backgroundColor = "#ffc107"; // Amarelo
+                statusIcon.innerText = "🕒"; // Ícone de relógio para reservado
             } else {
-                statusText.innerText = "Disponivel";
+                statusText.innerText = "Disponível";
                 statusBtn.style.backgroundColor = "#28a745"; // Verde
                 statusIcon.innerText = "✔"; // Checkmark para disponível
             }
         }
 
-        // Atualiza o estado com base na data atual
-        updateStatusUI(isPropertyOccupied());
+        // Atualiza o estado com base nas reservas
+        updateStatusUI(getPropertyStatus());
     });
 </script>
