@@ -36,18 +36,18 @@
 
         <div class="amenities">
             @foreach ($property['amenities'] as $amenity)
-            <span class="amenity">{{ $amenity['name'] }}</span>
+            <span class="amenity"> <i class="fas fa-{{$amenity['name']}}" aria-hidden="true"></i>
+                {{ $amenity['name'] }}</span>
             @endforeach
         </div>
         @php
         use Carbon\Carbon;
         $dates = session('dates') ?? '';
         $dates = is_string($dates) ? explode(' - ', $dates) : [];
+        $check_in = session('checkInDate')?? $dates[0] ?? null;
+        $check_out = session('checkOutDate') ?? $dates[1] ?? null;
 
-        $check_in = $dates[0] ?? null;
-        $check_out = $dates[1] ?? null;
-
-        $cancelation_date = $check_in ? Carbon::parse($check_in)->addDays(-$property['cancellation_policy']) : 'Data inválida';
+        $cancelation_date = $check_in ? Carbon::parse($check_in)->addDays(-$property['cancellation_policy']) : "{$property['cancellation_policy']} dias antes da data da reserva"; ;
         @endphp
         <p class="cancellation-policy">&#x2714; Cancelamento até dia {{ $cancelation_date  }}</p>
     </div>

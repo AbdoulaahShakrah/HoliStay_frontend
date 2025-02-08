@@ -138,7 +138,7 @@
                 labels: JSON.parse('{!! json_encode(array_keys($propertyReservations)) !!}'),
                 datasets: [{
                     data: JSON.parse('{!! json_encode(array_values($propertyReservations)) !!}'),
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966CC', '#FF7F50'], // Mais cores
+                    backgroundColor: ['#FF6384', '#36A2EB', '#007bff', '#4BC0C0', '#9966CC', '#FF7F50'],
                 }]
             }
         });
@@ -147,13 +147,13 @@
         const viewsCtx = document.getElementById('viewsChart').getContext('2d');
         const propertyViews = {!! json_encode(array_column($properties, 'page_visits', 'property_name'), JSON_FORCE_OBJECT) !!};
         new Chart(viewsCtx, {
-            type: 'bar', // Gráfico de barras
+            type: 'bar',
             data: {
                 labels: Object.keys(propertyViews),
                 datasets: [{
                     label: 'Visualizações',
                     data: Object.values(propertyViews),
-                    backgroundColor: '#007bff', // Cor das barras
+                    backgroundColor: '#ffc107',
                     borderColor: '#007bff',
                     borderWidth: 1
                 }]
