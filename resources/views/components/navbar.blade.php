@@ -7,9 +7,15 @@
         </a>
     </div>
     <div class="right-side">
+        @if(session('role') == 'host')
         <button type="button">
-            <a href="#">Anuncie a sua propriedade</a>
+            <a href="\hostPropertyCreate">Adicionar uma propriedade</a>
         </button>
+        @else
+        <button type="button">
+            <a href="\login">Torna um anfitrião e começa a ganhar</a>
+        </button>
+        @endif
 
         @if(session('access_token'))
         @if(session('role') == 'client')

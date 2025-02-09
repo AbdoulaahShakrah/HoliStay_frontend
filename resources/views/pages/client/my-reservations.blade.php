@@ -4,82 +4,7 @@
 @section('title', 'Home - HOLISTAY')
 
 @section('content')
-<style>
-.toast {
-  position: absolute;
-  top: 175px;
-  right: 30px;
-  border-radius: 12px;
-  background: #fff;
-  padding: 20px 35px 20px 25px;
-  box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
 
-.toast.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.toast .toast-content {
-  display: flex;
-  align-items: center;
-}
-
-.toast-content .check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 35px;
-  min-width: 35px;
-  background-color: #4070f4;
-  color: #fff;
-  font-size: 20px;
-  border-radius: 50%;
-}
-
-.toast-content .message {
-  display: flex;
-  flex-direction: column;
-  margin: 0 20px;
-}
-
-.message .text {
-  font-size: 16px;
-  font-weight: 400;
-  color: #666666;
-}
-
-.message .text.text-1 {
-  font-weight: 600;
-  color: #333;
-}
-</style>
-
-@if(session('success'))
-<div class="toast active" id="toast">
-    <div class="toast-content">
-        <i class="fas fa-solid fa-check check"></i>
-
-        <div class="message">
-            <span class="text text-1">Success</span>
-            <span class="text text-2">{{ session('success') }}</span>
-        </div>
-    </div>
-</div>
-
-<script>
-    setTimeout(() => {
-        let toast = document.getElementById('toast');
-        if (toast) {
-            toast.classList.remove('active'); 
-        }
-    }, 5000);
-</script>
-@endif
 
 <div class="container">
   <div class="reservations-count">
@@ -93,3 +18,24 @@
 </div>
 
 @endsection
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: "Sucesso!",
+            text: "{{ session('success') }}",
+            icon: "success",
+            confirmButtonText: "OK"
+        }).then(() => {
+            // Limpa os dados de sucesso da sessão usando sessionStorage
+            sessionStorage.removeItem('success-message');
+        });
+    });
+
+    // Armazena a mensagem na sessionStorage para evitar que reapareça ao retroceder
+    sessionStorage.setItem('success-message', "{{ session('success') }}");
+</script>
+@endif
