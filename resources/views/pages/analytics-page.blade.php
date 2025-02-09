@@ -69,7 +69,7 @@
         border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    /* Efeito ao passar o mouse nos cards */
+    /* Efeito ao passar o rato nos cards */
     .card:hover {
         transform: translateY(-5px);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
@@ -138,7 +138,7 @@
                 labels: JSON.parse('{!! json_encode(array_keys($propertyReservations)) !!}'),
                 datasets: [{
                     data: JSON.parse('{!! json_encode(array_values($propertyReservations)) !!}'),
-                    backgroundColor: ['#FF6384', '#36A2EB', '#007bff', '#4BC0C0', '#9966CC', '#FF7F50'],
+                    backgroundColor: ['#FF6384', '#36A200', '#007bff', '#4BC0C0', '#9966CC', '#FF7F50'],
                 }]
             }
         });

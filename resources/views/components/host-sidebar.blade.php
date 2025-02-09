@@ -13,7 +13,7 @@
             <div class="img_box">
                 <i class="fas fa-user"></i>
             </div>
-            <h2>HoliStay</h2>
+            <h2>{{ session('hostName')}}</h2>
         </li>
         <li>
             <a href="{{ route('hostProperties') }}" class="side-bar-a">
@@ -22,7 +22,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="side-bar-a">
+            <a href="{{ route('setAnalyticsPage') }}" class="side-bar-a">
                 <i class="fas fa-chart-pie"></i>
                 <p>Análises</p>
             </a>

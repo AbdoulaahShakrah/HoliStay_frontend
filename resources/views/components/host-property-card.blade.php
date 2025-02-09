@@ -7,15 +7,15 @@
                 <img src="{{ asset($property['photos'][0]['photo_url']?? '/images/homepage/1738981652889.jpg') }}" loading="lazy" alt="Imagem do Alojamento">
             </div>
             <div class="price-content">
-                <p class="active-price">Active Price</p>
+                <p class="active-price">Preço diário:</p>
                 <h4 class="price">{{ $property['property_price'] }} €</h4>
             </div>
             <div class="card-buttons">
                 <button class="edit-btn">
                     <a href="{{ route('hostProperty.edit', ['id' => $property['property_id']]) }}" class="fas fa-edit"></a>
                 </button>
-                <button class="delete-btn">
-                    <a href="{{ route('hostProperty.delete', ['id' => $property['property_id']]) }}" class="fas fa-trash"></a>
+                <button class="delete-btn delete-property" data-id="{{ $property['property_id'] }}">
+                    <a href="#" class="fas fa-trash"></a>
                 </button>
             </div>
         </div>
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<!-- Script para ajustar o icone e côr do campo do estado da propriedade (Ocupado/Disponivel)-->
+<!-- Script para ajustar o icone e côr do campo do estado da propriedade (Ocupado/Reservado/Disponivel)-->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Seleciona todos os elementos com a classe 'reservationsData'
@@ -94,3 +94,30 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".delete-property").forEach(button => {
+            button.addEventListener("click", function () {
+                let propertyId = this.getAttribute("data-id");
+                let deleteUrl = "{{ route('hostProperty.delete', ['id' => '__ID__']) }}".replace('__ID__', propertyId);
+
+                Swal.fire({
+                    title: "Tem certeza que pretende remover esta propriedade?",
+                    text: "Esta ação não pode ser desfeita!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Sim, remover!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = deleteUrl; // Redireciona para a exclusão
+                    }
+                });
+            });
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

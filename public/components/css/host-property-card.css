@@ -27,19 +27,20 @@
 
 /* Imagem */
 .image img {
-    width: auto;
-    max-width: 150px;
-    height: auto;
-    max-height: 150px;
+    width: 200px;
+    height: 150px;
     border-radius: 10px;
     object-fit: cover;
 }
 
 /* Preço */
 .price-content {
+    white-space: nowrap;
+    position: absolute;
+    left: 47%;
+    right: 50%;
     flex-direction: column;
-    align-items: start;
-    align-content: center;
+    margin-top: 40px;
 }
 
 .active-price {
@@ -80,12 +81,17 @@
 
 /* Parte inferior do cartão */
 .bottom-side {
+    display:flex;
     position:relative;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
     padding-top: 10px;
+}
+
+/* Título */
+.title {
+    width: 400px;
 }
 
 /* Título */
@@ -99,17 +105,21 @@
     font-weight: bold;
 }
 
+.more-details {
+    white-space: nowrap;
+    position: absolute;
+    left: 45%;
+    right: 50%;
+}
+
 /* Link "Ver Mais Detalhes" */
 .more-details a {
-    position: absolute;
-    align-items:flex-end;
     text-decoration: underline;
     font-size: 18px;
     color: #007bff;
 }
 
 .more-details a:hover {
-    text-decoration: underline;
     color: #04027d;
 }
 
