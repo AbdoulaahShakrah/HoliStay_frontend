@@ -141,79 +141,79 @@
                         <button id="remove-photo-btn" class="btn btn-danger" disabled>Remover Foto</button>
                     </div>
 
-                    <!-- Input tipo file oculto -->
+                    <!-- Input tipo file oculto para as fotos exibidas na página-->
                     <input type="file" id="photo-input" name="photos[]" value="photos[]" multiple accept="image/*" class="form-control" style="display: none;">
+                    <!-- Input tipo file oculto para as fotos removidas -->
+                    <input type="hidden" id="removed-photos" name="removed_photos">
                 </div>
             </div>
         </div>
 
-
         <button type="submit" class="btn-add">
             {{ isset($property) ? 'Atualizar Propriedade' : 'Criar Propriedade' }}
         </button>
-
-        <!--<button type="submit" class="btn-add">Adicionar</button>-->
-
     </form>
 </div>
 @endsection
 
+<!-- Script para gerir as fotos na página -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // ---------------------- UPLOAD DE FOTOS ----------------------
         let photoInput = document.getElementById("photo-input");
         let preview = document.getElementById("photo-preview");
         let removeBtn = document.getElementById("remove-photo-btn");
         let selectPhotoBtn = document.getElementById("select-photo-btn");
         let selectedImage = null;
+        let removedPhotos = []; // Armazena os IDs das fotos removidas
 
-        // Carregar fotos existentes ao iniciar
         let existingPhotos = @json(isset($property) ? $property['photos'] : []);
         existingPhotos.forEach(photo => {
-            let photoUrl = "{{ asset('') }}" + photo.photo_url; // Garante que o caminho seja correto
-            addPhotoToPreview(photoUrl);
+            let photoUrl = "{{ asset('') }}" + photo.photo_url;
+            addPhotoToPreview(photoUrl, photo.photo_id);
         });
 
-        // Mostrar o input de file quando clicar no botão "Selecionar Fotos"
         selectPhotoBtn.addEventListener("click", function() {
-            photoInput.click(); // Abre o seletor de arquivos
+            photoInput.click();
         });
 
-        if (photoInput) {
-            photoInput.addEventListener("change", function(event) {
-                Array.from(event.target.files).forEach(file => {
-                    if (file.type.startsWith("image/")) {
-                        let reader = new FileReader();
-                        reader.onload = function(e) {
-                            addPhotoToPreview(e.target.result);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            });
-
-            // Botão para remover a imagem selecionada
-            removeBtn.addEventListener("click", function() {
-                if (selectedImage) {
-                    let confirmDelete = confirm("Tem certeza que deseja excluir esta foto?");
-                    if (confirmDelete) {
-                        preview.removeChild(selectedImage);
-                        selectedImage = null;
-                        removeBtn.disabled = true;
-                    }
+        photoInput.addEventListener("change", function(event) {
+            Array.from(event.target.files).forEach(file => {
+                if (file.type.startsWith("image/")) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        addPhotoToPreview(e.target.result, null); // Foto nova não tem ID
+                    };
+                    reader.readAsDataURL(file);
                 }
             });
-        }
+        });
 
-        // Função para adicionar fotos ao preview
-        function addPhotoToPreview(photoUrl) {
+        removeBtn.addEventListener("click", function() {
+            if (selectedImage) {
+                let confirmDelete = confirm("Tem certeza que deseja excluir esta foto?");
+                if (confirmDelete) {
+                    let photoId = selectedImage.getAttribute("data-photo-id");
+                    if (photoId) {
+                        removedPhotos.push(photoId); // Adiciona o ID ao array
+                    }
+                    preview.removeChild(selectedImage);
+                    selectedImage = null;
+                    removeBtn.disabled = true;
+                    document.getElementById("removed-photos").value = JSON.stringify(removedPhotos);
+                }
+            }
+        });
+
+        function addPhotoToPreview(photoUrl, photoId) {
             let imgContainer = document.createElement("div");
             imgContainer.classList.add("image-container");
+            if (photoId) {
+                imgContainer.setAttribute("data-photo-id", photoId);
+            }
 
             let img = document.createElement("img");
             img.src = photoUrl;
 
-            // Selecionar imagem ao clicar
             img.addEventListener("click", function() {
                 document.querySelectorAll(".image-container img").forEach(el => el.classList.remove("selected"));
                 img.classList.add("selected");
@@ -227,6 +227,7 @@
     });
 </script>
 
+<!-- Script para gerir os botões de '+' e '-' das capacidades na página -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // ---------------------- INCREMENTAR E DECREMENTAR ----------------------
@@ -236,12 +237,14 @@
             let btnDecrement = control.querySelector(".btn-decrement");
 
             btnIncrement.addEventListener("click", function() {
-                input.value = parseInt(input.value) + 1;
+                let currentValue = parseInt(input.value) || 0; // Se estiver vazio ou inválido, assume 0
+                input.value = currentValue === 0 ? 1 : currentValue + 1;
             });
 
             btnDecrement.addEventListener("click", function() {
-                if (parseInt(input.value) > 0) { // Impede valores negativos
-                    input.value = parseInt(input.value) - 1;
+                let currentValue = parseInt(input.value) || 0;
+                if (currentValue > 0) { // Impede valores negativos
+                    input.value = currentValue - 1;
                 }
             });
         });

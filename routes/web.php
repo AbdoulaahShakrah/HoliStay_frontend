@@ -9,8 +9,9 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
+// Rota default (raiz) que redireciona para a rota de login
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('home');
 });
 
 Route::get('/home', [HomePageController::class, 'index'])->name('home');
@@ -33,7 +34,6 @@ Route::post('/reservations-cancel/{id}', [ReservationController::class, 'reserva
 Route::get('/search', [PropertyController::class, 'results'])->name('search.results');
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'login_confirmation'])->name('login.confirmation');
-
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::get('/hostProperties', [HostPropertyController::class, 'hostProperties'])->name('hostProperties');
@@ -47,7 +47,13 @@ Route::put('/hostProperty/update/{id}', [HostPropertyController::class, 'update'
 
 Route::get('/hostProperty/delete/{id}', [HostPropertyController::class, 'delete'])->name('hostProperty.delete');
 
-Route::get('/AnalyticsPage', [AnalyticsController::class, 'setAnalyticsPage'])->name('setAnalyticsPage');
+Route::get('/analyticsPage', [AnalyticsController::class, 'setAnalyticsPage'])->name('setAnalyticsPage');
+
+// Rota para limpar os dados de success da sessão (apresentação de alertas)
+Route::post('/clear-session-success', function () {
+    session()->forget('success');
+    return response()->json(['message' => 'Session cleared']);
+})->name('clear.session.success');
 
 //rota para fazer testes
 Route::get('/test', function(){

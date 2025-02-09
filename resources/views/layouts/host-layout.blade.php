@@ -14,11 +14,11 @@
 </head>
 
 <body>
-    
+
     @include('components.host-navbar')
-       
+
     <div class="container">
-    @include('components.host-sidebar')
+        @include('components.host-sidebar')
 
 
         <main>
@@ -26,7 +26,7 @@
         </main>
 
     </div>
-    
+
     @include('components.footer')
 
 </body>

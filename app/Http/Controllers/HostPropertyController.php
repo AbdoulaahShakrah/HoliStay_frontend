@@ -19,6 +19,8 @@ class HostPropertyController extends Controller
         $response = Http::withToken($cleanToken)->get("http://127.0.0.1:8000/api/v1/properties-by-host?host_id=" . session('host_id'));
         $properties = $response->json()['data'];
 
+        session()->put(['hostName' => $properties[0]['host']['client']['client_name']]);
+
         // Para cada propriedade, obter as reservas correspondentes
         foreach ($properties as &$property) {
             // Obtém as reservas para cada propriedade
@@ -28,6 +30,9 @@ class HostPropertyController extends Controller
         return view('pages.host.host-homepage', compact('properties'));
     }
 
+    /**
+     * Display a specific resource with details.
+     */
     public function propertyDetails($id, Request $request)
     {
         $apiUrl = 'http://127.0.0.1:8000/api/v1/properties/' . $id;
@@ -45,6 +50,9 @@ class HostPropertyController extends Controller
         return view('pages.host.host-property-details', compact('property', 'reservations'));
     }
 
+    /**
+     * Edit a resource.
+     */
     public function edit($id, Request $request)
     {
         $apiUrl = 'http://127.0.0.1:8000/api/v1/properties/' . $id;
@@ -57,6 +65,9 @@ class HostPropertyController extends Controller
         return view('pages.host.host-property-create', compact('property', 'amenities'));
     }
 
+    /**
+     * Update a resource.
+     */
     public function update($id, Request $request)
     {
         $fullToken = session('access_token');
@@ -86,6 +97,44 @@ class HostPropertyController extends Controller
             ->put("http://127.0.0.1:8000/api/v1/properties/" . $id, $propertyData);
 
         if ($response->successful()) {
+
+            // Remover fotos já existentes que foram excluídas
+            $removedPhotos = json_decode($request->input('removed_photos', '[]'), true);
+            if (!empty($removedPhotos)) {
+                foreach ($removedPhotos as $photoId) {
+                    $photoPath = public_path($photoId);
+                    if (file_exists($photoPath)) {
+                        unlink($photoPath); // Remove a foto fisicamente
+                    }
+
+                    Http::withToken($cleanToken)
+                        ->delete("http://127.0.0.1:8000/api/v1/photos/" . $photoId);
+                }
+            }
+
+            // Adicionar fotos novas (Verifica se há fotos e faz o upload)
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $photo) {
+                    // Obtém a extensão correta
+                    $extension = $photo->getClientOriginalExtension();
+                    // Gera um nome único baseado no timestamp corretamente
+                    $photoName = intval(microtime(true) * 1000) . '.' . $extension;
+                    // Define o caminho correto dentro de `public/`
+                    $destinationPath = public_path('images/homepage');
+                    // Move o arquivo para `public/images/homepage/`
+                    $photo->move($destinationPath, $photoName);
+                    // Caminho relativo para guardar na base de dados
+                    $photoPath = 'images/homepage/' . $photoName;
+                    // Enviar o caminho para a API
+                    $photoData = [
+                        'propertyId' => $id,
+                        'propertyUrl' => $photoPath,
+                    ];
+
+                    Http::withToken($cleanToken)
+                        ->post("http://127.0.0.1:8000/api/v1/photos", $photoData);
+                }
+            }
             return redirect()->route('hostProperties')
                 ->with('success', 'Propriedade atualizada com sucesso!');
         } else {
@@ -93,12 +142,18 @@ class HostPropertyController extends Controller
         }
     }
 
+    /**
+     * Create new a resource.
+     */
     public function create(Request $request)
     {
         $amenities = $this->getAmenities();
         return view('pages.host.host-property-create', compact('amenities'));
     }
 
+    /**
+     * Store a new a resource.
+     */
     public function store(Request $request)
     {
         $fullToken = session('access_token');
@@ -171,6 +226,9 @@ class HostPropertyController extends Controller
         }
     }
 
+    /**
+     * Soft delete a resource.
+     */
     public function delete($id, Request $request)
     {
         $fullToken = session('access_token');
@@ -186,6 +244,9 @@ class HostPropertyController extends Controller
         }
     }
 
+    /**
+     * Private fun to get All amenities list.
+     */
     private function getAmenities()
     {
         $fullToken = session('access_token');
@@ -198,6 +259,9 @@ class HostPropertyController extends Controller
         return $amenities;
     }
 
+    /**
+     * Private fun to get property reservations.
+     */
     private function getPropertyReservations($id)
     {
         $fullToken = session('access_token');

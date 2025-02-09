@@ -27,7 +27,7 @@
 }
 
 .right-side button {
-    background-color: #58c16d;
+    background-color: #47cb61;
     border: none;
     padding: 12px 20px;
     border-radius: 20px;
@@ -42,7 +42,7 @@
 }
 
 .right-side button:hover {
-    background-color: #58c16d;
+    background-color: #49a65c;
     transition: 2ms;
 }
 .right-side button a {
