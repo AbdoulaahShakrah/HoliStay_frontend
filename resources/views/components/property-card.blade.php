@@ -7,7 +7,7 @@
         @else
             <img src="{{ asset('images/default-placeholder.png') }}" alt="Imagem Indisponível">
         @endif-->
-        <img src="{{ asset('images/homepage/1.webp') }}" alt="Imagem do Alojamento">
+        <img src="{{ asset($property['photos'][0]['photo_url'] ?? '') }}" alt="Foto da propriedade">
 
         <div class="details">
             <h2>{{ $property['property_name'] }}</h2>

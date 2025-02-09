@@ -84,7 +84,7 @@
 <div class="container">
   <div class="reservations-count">
     <h3>
-      {{$reservations[0]['property']['host']['client']['client_name']}} tem {{count($reservations)}} reservas
+      {{$reservations[0]['client']['client_name']}} tem {{count($reservations)}} reservas
     </h3>
   </div>
     @foreach(array_reverse($reservations) as $reservation)

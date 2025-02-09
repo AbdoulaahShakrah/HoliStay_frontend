@@ -42,7 +42,6 @@
         $situation = $currentDate->gt($checkInDate) ? 'Check-in feito' : 'Aguardando check-in';
         $statusColor = $status == 'Passou' ? '#dc3545' : '#28a745';
 
-        // Lógica do botão de cancelamento
         $canCancel = $currentDate->lt($checkInDate->subDays($cancellationPolicyDays));
         @endphp
 
