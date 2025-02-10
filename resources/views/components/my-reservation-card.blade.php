@@ -3,8 +3,7 @@
 <div class="my-reservation-card">
     <div class="top-side">
         <div class="property-details">
-            <img src="{{ asset($reservation['property']['photos'][0]['photo_url']) }}" alt="Foto da propriedade">
-
+            <img src="{{ asset($reservation['property']['photos'][0]['photo_url'] ?? '') }}" alt="Foto da propriedade">
             <div class="property-info">
                 <h2>{{ $reservation['property']['property_name'] }}</h2>
                 <p>{{ $reservation['property']['property_address'] }}</p>

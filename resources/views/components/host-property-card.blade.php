@@ -4,7 +4,7 @@
     <div class="property-card">
         <div class="top-side">
             <div class="image">
-                <img src="{{ asset($property['photos'][0]['photo_url']?? '/images/homepage/1738981652889.jpg') }}" loading="lazy" alt="Imagem do Alojamento">
+                <img src="{{ asset($property['photos'][0]['photo_url'] ?? '') }}" loading="lazy" alt="Alojamento sem imagem disponível!">
             </div>
             <div class="price-content">
                 <p class="active-price">Preço diário:</p>
@@ -95,6 +95,7 @@
     });
 </script>
 
+<!-- codigo para mostrar alerta para confirmação de eliminar propriedade -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".delete-property").forEach(button => {
