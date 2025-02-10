@@ -98,10 +98,10 @@
         }
 
         function updateReservation(index) {
-            document.getElementById('client_id').innerText = reservations[index]['client_id'];
+            document.getElementById('client_id').innerText = reservations[index]['client']['client_name'];
             document.getElementById('check_in_date').innerText = reservations[index]['check_in_date'];
             document.getElementById('check_out_date').innerText = reservations[index]['check_out_date'];
-            document.getElementById('contact').innerText = reservations[index]['client_id'];
+            document.getElementById('contact').innerText = reservations[index]['client']['phone_number'];
             document.getElementById('reservation_amount').innerText = reservations[index]['reservation_amount'];
         }
 
