@@ -3,7 +3,6 @@
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.12);
-    max-width: 1000px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -26,7 +25,7 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .property-details img {
@@ -39,6 +38,11 @@
 
 .property-details img:hover {
     transform: scale(1.05);
+}
+
+.property-info{
+    min-width: 500px;
+    height: 100%;
 }
 
 .property-info h2 {
@@ -170,8 +174,6 @@
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-
-
 .checkin-checkout i {
     color: #007bff;
     font-size: 22px;
@@ -184,13 +186,23 @@
 }
 
 /* ---- Responsividade ---- */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+    .my-reservation-card {
+        padding: 20px;
+    }
+
     .property-details {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 15px;
     }
 
+    .property-info {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
     .property-details img {
         width: 100%;
         max-width: 450px;
@@ -214,5 +226,37 @@
         gap: 15px;
         text-align: center;
     }
-    
+}
+
+@media (max-width: 480px) {
+    .my-reservation-card {
+        padding: 15px;
+    }
+
+    .property-details {
+        gap: 10px;
+    }
+
+    .property-info h2 {
+        font-size: 20px;
+    }
+
+    .property-info p {
+        font-size: 16px;
+    }
+
+    .reservations-status {
+        font-size: 16px;
+        padding: 8px 18px;
+    }
+
+    .checkin-checkout {
+        font-size: 18px;
+        padding: 10px 15px;
+    }
+
+    .cancel-button {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
 }

@@ -2,12 +2,8 @@
 
 <div class="property">
 <a class="property-link" href="{{ route('property.details', ['id' => $property['property_id']])}}">
-        <!--@if(isset($property['photos']) && count($property['photos']) > 0)
-            <img src="{{ $property['photos'][0]['photo_url'] }}" alt="Imagem da Propriedade">
-        @else
-            <img src="{{ asset('images/default-placeholder.png') }}" alt="Imagem Indisponível">
-        @endif-->
-        <img src="{{ asset('images/homepage/1.webp') }}" alt="Imagem do Alojamento">
+
+        <img src="{{ asset($property['photos'][0]['photo_url']?? '') }}" loading="lazy" alt="Propriedade sem imagem ">
 
         <div class="details">
             <h2>{{ $property['property_name'] }}</h2>

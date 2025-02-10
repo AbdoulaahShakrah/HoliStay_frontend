@@ -9,7 +9,7 @@
                 <input type="text" name="email" class="input-field" placeholder="Email" autocomplete="on" required>
             </div>
             <div class="input-box">
-                <input type="password" name="password" [(ngModel)]="loginObj.Password" class="input-field" placeholder="Password" autocomplete="off" required>
+                <input type="password" name="password"  class="input-field" placeholder="Password" autocomplete="off" required>
             </div>
             <div class="forgot">
                 <section>

@@ -10,31 +10,36 @@
 <div class="properties-section">
     <h3>Destinos Populares para Casais</h3>
     <div class="properties-grid">
-        @foreach(array_slice($countries, 0, 3) as $country)
-        <div class="property-card" onclick="submitSearch('{{ $country }}', 100, 2)">
-            <!--<img src="{{ asset('images/homepage/' . strtolower($country) . '.webp') }}" loading="lazy" alt="Imagem do Alojamento">-->
-            <img src="{{ asset('images/homepage/3.webp') }}" loading="lazy" alt="Imagem do Alojamento">
+        @foreach(array_slice($countries, 0, 3) as $index => $country)
+        @php
+        $price = rand(50, 700);
+        @endphp
+        <div class="property-card" onclick="submitSearch('{{ addslashes($country) }}', '{{ $price }}', 2)">
+            <img src="{{ asset('images/homepage-' . $index + 1 . '.png') }}" loading="lazy" alt="Imagem do Alojamento">
             <div class="property-content">
                 <h4>{{ $country }}</h4>
                 <p>Casa de férias perfeita para dois em {{ $country }}.</p>
-                <p class="price">A partir de €100 por noite</p>
+                <p class="price">A partir de €{{ $price }} por noite</p>
             </div>
         </div>
         @endforeach
+
     </div>
 </div>
 
 <div class="properties-section">
     <h3>Destinos Populares para Famílias</h3>
     <div class="properties-grid">
-        @foreach(array_slice($countries, 3, 3) as $country)
-        <div class="property-card" onclick="submitSearch('{{ $country }}', 900, 7)">
-            <!--<img src="{{ asset('images/homepage/' . strtolower($country) . '.webp') }}" loading="lazy" alt="Imagem do Alojamento">-->
-            <img src="{{ asset('images/homepage/2.webp') }}" loading="lazy" alt="Imagem do Alojamento">
-            <div class="property-content">
+        @foreach(array_slice($countries, 3, 3) as $index => $country)
+        @php
+        $price = rand(50, 700);
+        @endphp
+        <div class="property-card" onclick="submitSearch('{{ $country }}', '{{$price}}', 7)">
+        <img src="{{ asset('images/homepage-' . $index + 4 . '.png') }}" loading="lazy" alt="Imagem do Alojamento">
+        <div class="property-content">
                 <h4>{{ $country }}</h4>
                 <p>Casa espaçosa para famílias grandes em {{ $country }}.</p>
-                <p class="price">A partir de €900 por noite</p>
+                <p class="price">A partir de {{$price}} por noite</p>
             </div>
         </div>
         @endforeach
@@ -64,4 +69,4 @@
     }
 </script>
 
-@endsection 
+@endsection

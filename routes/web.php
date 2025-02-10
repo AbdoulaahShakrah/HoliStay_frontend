@@ -9,7 +9,6 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
-// Rota default (raiz) que redireciona para a rota de login
 Route::get('/', function () {
     return redirect()->route('home');
 });
@@ -49,7 +48,6 @@ Route::get('/hostProperty/delete/{id}', [HostPropertyController::class, 'delete'
 
 Route::get('/analyticsPage', [AnalyticsController::class, 'setAnalyticsPage'])->name('setAnalyticsPage');
 
-// Rota para limpar os dados de success da sessão (apresentação de alertas)
 Route::post('/clear-session-success', function () {
     session()->forget('success');
     return response()->json(['message' => 'Session cleared']);
