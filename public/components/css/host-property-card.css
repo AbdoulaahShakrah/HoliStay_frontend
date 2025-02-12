@@ -139,3 +139,44 @@
     font-weight: bold;
     border-radius: 6px;
 }
+
+
+/* Estilos para telas com largura de 800px ou menos */
+@media (max-width: 800px) {
+    /* Botão de Reservado */
+.status {
+    display: flex;
+    position:relative;
+}
+.more-details {
+    display: flex;
+    white-space: nowrap;
+    position:relative;
+    left: auto;
+    right: auto;
+}
+/* Preço */
+.price-content {
+    display: flex;
+    white-space: nowrap;
+    position: relative;
+    left: auto;
+    right: auto;
+    flex-direction: column;
+    margin-top: 40px;
+}
+/* Botões de ação */
+.card-buttons {
+    display: flex;
+    position:relative;
+    justify-self: end;
+    align-items:start;
+    align-content:flex-end;
+    gap: 8px;
+}
+/* Imagem */
+.image img {
+    width: 150px;
+    height: 120px;
+}
+}

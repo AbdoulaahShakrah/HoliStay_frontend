@@ -173,3 +173,10 @@ textarea {
 .btn-add:hover {
     background-color: #27ae60;
 }
+
+/* Estilos para telas com largura de 800px ou menos */
+@media (max-width: 900px) {
+    .form-grid {
+        display: table-row;
+    }
+}

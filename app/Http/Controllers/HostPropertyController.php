@@ -21,9 +21,8 @@ class HostPropertyController extends Controller
 
         session()->put(['hostName' => $properties[0]['host']['client']['client_name']]);
 
-        // Para cada propriedade, obter as reservas correspondentes
+        // Para cada propriedade, obtem as reservas correspondentes
         foreach ($properties as &$property) {
-            // Obtém as reservas para cada propriedade
             $property['reservations'] = $this->getPropertyReservations($property['property_id']);
         }
 
@@ -115,16 +114,11 @@ class HostPropertyController extends Controller
             // Adicionar fotos novas (Verifica se há fotos e faz o upload)
             if ($request->hasFile('photos')) {
                 foreach ($request->file('photos') as $photo) {
-                    // Obtém a extensão correta
-                    $extension = $photo->getClientOriginalExtension();
-                    // Gera um nome único baseado no timestamp corretamente
-                    $photoName = intval(microtime(true) * 1000) . '.' . $extension;
-                    // Define o caminho correto dentro de `public/`
-                    $destinationPath = public_path('images/homepage');
-                    // Move o arquivo para `public/images/homepage/`
-                    $photo->move($destinationPath, $photoName);
-                    // Caminho relativo para guardar na base de dados
-                    $photoPath = 'images/homepage/' . $photoName;
+                    $extension = $photo->getClientOriginalExtension(); // Obtém a extensão correta
+                    $photoName = intval(microtime(true) * 1000) . '.' . $extension;                   
+                    $destinationPath = public_path('images/homepage'); // Define o caminho da pasta                   
+                    $photo->move($destinationPath, $photoName); // Move o arquivo para `public/images/homepage/`                   
+                    $photoPath = 'images/homepage/' . $photoName; // Caminho relativo para guardar na base de dados
                     // Enviar o caminho para a API
                     $photoData = [
                         'propertyId' => $id,
